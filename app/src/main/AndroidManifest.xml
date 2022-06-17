@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tech.edroomdevs.edroom">
 
+    <!-- users permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +14,45 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EdRoom">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DoubtDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddDoubtActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DoubtCornerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.NoticeDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UserInfo"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ForgotActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.LoginActivity" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.LoginActivity" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ResourceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.NoticeBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,6 +60,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

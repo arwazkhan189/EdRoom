@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1061182465263",
+    "project_id": "edroom-146bd",
+    "storage_bucket": "edroom-146bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061182465263:android:a33a9dd734a9e96246e71a",
+        "android_client_info": {
+          "package_name": "tech.edroomdevs.edroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061182465263-knk4pj1qrkg74ocddb6ci38o9ehcg1tc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tech.edroomdevs.edroom",
+            "certificate_hash": "655c06291060f0f96f8069daf366a04d7873fac3"
+          }
+        },
+        {
+          "client_id": "1061182465263-11sjnbhnklvalodcl4dj2gbnndr4virb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBJym6t6m1DNl1AUCP8xPjxQ6PtIeah8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061182465263-11sjnbhnklvalodcl4dj2gbnndr4virb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

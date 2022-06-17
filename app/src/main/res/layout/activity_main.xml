@@ -4,15 +4,197 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/main_activity_bg"
+    tools:context=".activity.MainActivity">
+
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile"
+        tools:ignore="ContentDescription" />
 
     <TextView
+        android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="13dp"
+        android:text="@string/name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
 
+    <Button
+        android:id="@+id/btnViewProfile"
+        android:layout_width="135dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
+        android:bottomLeftRadius="20dp"
+        android:bottomRightRadius="20dp"
+        android:text="@string/view_profile"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:topLeftRadius="20dp"
+        android:topRightRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+        app:layout_goneMarginTop="15dp"
+        tools:ignore="SmallSp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardAttendance"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="76dp"
+        app:cardBackgroundColor="#fff"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnViewProfile">
+
+        <ImageView
+            android:id="@+id/imgAttendance"
+            android:layout_width="109dp"
+            android:layout_height="102dp"
+            android:layout_gravity="center"
+            android:background="@drawable/attendance"
+            app:layout_constraintBottom_toBottomOf="@+id/cardAttendance"
+            app:layout_constraintEnd_toEndOf="@+id/cardAttendance"
+            app:layout_constraintStart_toStartOf="@+id/cardAttendance"
+            app:layout_constraintTop_toTopOf="@+id/cardAttendance"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txtAttendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="120dp"
+            android:text="@string/attendance"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardDoubt"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="76dp"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.309"
+        app:layout_constraintStart_toEndOf="@+id/cardAttendance"
+        app:layout_constraintTop_toBottomOf="@+id/btnViewProfile">
+
+        <ImageView
+            android:id="@+id/imgDoubt"
+            android:layout_width="95dp"
+            android:layout_height="83dp"
+            android:layout_gravity="center"
+            android:background="@drawable/doubt"
+            app:layout_constraintBottom_toBottomOf="@+id/cardDoubt"
+            app:layout_constraintEnd_toEndOf="@+id/cardDoubt"
+            app:layout_constraintStart_toStartOf="@+id/cardDoubt"
+            app:layout_constraintTop_toTopOf="@+id/cardDoubt"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txtDoubt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="120dp"
+            android:text="@string/doubt_corner"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardNotice"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="56dp"
+        app:cardBackgroundColor="#fff"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cardResources"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardAttendance"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/imgNotice"
+            android:layout_width="101dp"
+            android:layout_height="93dp"
+            android:layout_gravity="center"
+            android:background="@drawable/notice"
+            app:layout_constraintBottom_toBottomOf="@+id/cardNotice"
+            app:layout_constraintEnd_toEndOf="@+id/cardNotice"
+            app:layout_constraintStart_toStartOf="@+id/cardNotice"
+            app:layout_constraintTop_toTopOf="@+id/cardNotice"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txtNotice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="120dp"
+            android:text="@string/notice_board"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardResources"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="52dp"
+        app:cardBackgroundColor="#fff"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.309"
+        app:layout_constraintStart_toEndOf="@+id/cardAttendance"
+        app:layout_constraintTop_toBottomOf="@+id/cardDoubt"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/imgResource"
+            android:layout_width="101dp"
+            android:layout_height="93dp"
+            android:layout_gravity="center"
+            android:background="@drawable/resources"
+            app:layout_constraintBottom_toBottomOf="@+id/cardResources"
+            app:layout_constraintEnd_toEndOf="@+id/cardResources"
+            app:layout_constraintStart_toStartOf="@+id/cardResources"
+            app:layout_constraintTop_toTopOf="@+id/cardResources"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txtResource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="120dp"
+            android:text="@string/resources"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
