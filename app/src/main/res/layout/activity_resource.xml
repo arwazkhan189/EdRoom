@@ -38,12 +38,104 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout
+        android:id="@+id/rlSearch"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/AppBar"
+        android:layout_centerHorizontal="true"
+        android:background="@color/dark_blue"
+        android:padding="10dp"
+        app:elevation="0dp">
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/btnFilterResources"
+            android:background="@drawable/rounded_corner_search"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="4dp"
+            android:hint="@string/search_resources"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:singleLine="true"
+            tools:ignore="ObsoleteLayoutParam" />
+
+        <ImageView
+            android:id="@+id/btnFilterResources"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_sort"
+            tools:ignore="ContentDescription,ObsoleteLayoutParam" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddResources"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/addResources"
+        android:src="@drawable/add_icon"
+        app:backgroundTint="@color/dark_blue"
+        app:tint="@color/pink" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewResources"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/AppBar"
+        android:layout_below="@+id/rlSearch"
         android:layout_margin="5dp"
         tools:listitem="@layout/recycler_resource_single_row" />
+
+    <RelativeLayout
+        android:id="@+id/rLNotFoundResources"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlSearch"
+        android:background="@color/white"
+        android:elevation="1dp"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/imgSearchNotFound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/resource_not_found"
+            android:src="@drawable/not_found" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/plResources"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlSearch"
+        android:background="@color/white"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/dark_blue" />
+    </RelativeLayout>
+
 
 </RelativeLayout>

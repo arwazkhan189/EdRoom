@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="28dp"
-        app:layout_constraintBottom_toTopOf="@id/etYear"
+        app:layout_constraintBottom_toTopOf="@id/etUniqueNo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etFullName">
@@ -64,41 +64,20 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etYear"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etDept">
-
-        <AutoCompleteTextView
-            android:id="@+id/etRegisterYear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none"
-            android:text="@string/year_of_study"
-            tools:ignore="LabelFor" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etRollNo"
+        android:id="@+id/etUniqueNo"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="28dp"
-        android:hint="@string/roll_number"
+        android:hint="@string/unique_code"
         app:layout_constraintBottom_toTopOf="@id/etMobileNo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etYear">
+        app:layout_constraintTop_toBottomOf="@+id/etDept">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etRegisterRollNo"
+            android:id="@+id/etRegisterUniqueNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -115,7 +94,7 @@
         android:hint="@string/mobile_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etRollNo">
+        app:layout_constraintTop_toBottomOf="@+id/etUniqueNo">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etRegisterMobileNo"

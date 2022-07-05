@@ -3,16 +3,18 @@ package tech.edroomdevs.edroom.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
-import android.view.View
+import android.provider.Settings
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import tech.edroomdevs.edroom.R
 import tech.edroomdevs.edroom.daos.UserDao
 import tech.edroomdevs.edroom.databinding.ActivityUserInfoBinding
 import tech.edroomdevs.edroom.model.User
+import tech.edroomdevs.edroom.util.ConnectionManager
 
-class UserInfo : AppCompatActivity() {
+class UserStudentsDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserInfoBinding
     private lateinit var auth: FirebaseAuth
@@ -26,87 +28,74 @@ class UserInfo : AppCompatActivity() {
 
         //Year of study
         val itemsYear = resources.getStringArray(R.array.year)
-        val adapterYear = ArrayAdapter(this, R.layout.list_year, itemsYear)
+        val adapterYear = ArrayAdapter(this, R.layout.list_design, itemsYear)
         (binding.etRegisterYear as? AutoCompleteTextView)?.setAdapter(adapterYear)
-        binding.etRegisterYear.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    Toast.makeText(
-                        this@UserInfo,
-                        "Please select your year of study...",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                }
-            }
 
         // Department
         val itemsDept = resources.getStringArray(R.array.dept)
-        val adapterDept = ArrayAdapter(this, R.layout.list_dept, itemsDept)
+        val adapterDept = ArrayAdapter(this, R.layout.list_design, itemsDept)
         (binding.etRegisterDept as? AutoCompleteTextView)?.setAdapter(adapterDept)
-        binding.etRegisterDept.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    Toast.makeText(
-                        this@UserInfo,
-                        "Please select your Department...",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                }
-            }
 
         binding.btnRegisterSubmit.setOnClickListener {
-            when {
-                TextUtils.isEmpty(binding.etRegisterFullName.text.toString().trim {
-                    it <= ' '
-                }) -> {
-                    Toast.makeText(
-                        this@UserInfo,
-                        "Please enter your full name.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                TextUtils.isEmpty(binding.etRegisterMobileNo.text.toString().trim {
-                    it <= ' '
-                }) -> {
-                    Toast.makeText(
-                        this@UserInfo,
-                        "Please enter your mobile number.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                TextUtils.isEmpty(binding.etRegisterRollNo.text.toString().trim {
-                    it <= ' '
-                }) -> {
-                    Toast.makeText(
-                        this@UserInfo,
-                        "Please enter your roll no.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else -> {
-                    checkUserVerification()
-                }
+            if (binding.etRegisterFullName.text.toString() == "") {
+                Toast.makeText(
+                    this@UserStudentsDetailsActivity,
+                    "Please enter your full name.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (binding.etRegisterDept.editableText.toString() == "Department") {
+                Toast.makeText(
+                    this@UserStudentsDetailsActivity,
+                    "Please select your Department...",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (binding.etRegisterYear.editableText.toString() == "Year Of Study") {
+                Toast.makeText(
+                    this@UserStudentsDetailsActivity,
+                    "Please select Year of Study...",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (binding.etRegisterRollNo.text.toString() == "") {
+                Toast.makeText(
+                    this@UserStudentsDetailsActivity,
+                    "Please enter your roll no.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (binding.etRegisterMobileNo.text.toString() == "") {
+                Toast.makeText(
+                    this@UserStudentsDetailsActivity,
+                    "Please enter your mobile number.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                checkUserVerification()
             }
         }
 
+    }
+
+    //on resume function
+    override fun onResume() {
+        if (!(ConnectionManager().checkConnectivity(this))) {
+            checkInternet()
+        }
+        super.onResume()
+    }
+
+    // internet check function
+    private fun checkInternet() {
+        val dialog = MaterialAlertDialogBuilder(this)
+        dialog.setTitle("Error")
+        dialog.setMessage("Internet Connection is not Found")
+        dialog.setPositiveButton("Open Settings") { _, _ ->
+            val settingsIntent = Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS)
+            startActivity(settingsIntent)
+        }
+        dialog.setNegativeButton("Exit") { _, _ ->
+            ActivityCompat.finishAffinity(this)
+        }
+        dialog.create()
+        dialog.show()
     }
 
     private fun checkUserVerification() {
@@ -118,12 +107,12 @@ class UserInfo : AppCompatActivity() {
                     val user = FirebaseAuth.getInstance().currentUser
                     if (user!!.isEmailVerified) {
                         Toast.makeText(
-                            this@UserInfo,
+                            this@UserStudentsDetailsActivity,
                             "You are Login successfully.",
                             Toast.LENGTH_SHORT
                         ).show()
                         val intent =
-                            Intent(this@UserInfo, MainActivity::class.java)
+                            Intent(this@UserStudentsDetailsActivity, HomeActivity::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         val userInfo =
@@ -142,7 +131,7 @@ class UserInfo : AppCompatActivity() {
                         finish()
                     } else {
                         Toast.makeText(
-                            this@UserInfo,
+                            this@UserStudentsDetailsActivity,
                             "Verify your email first...",
                             Toast.LENGTH_SHORT
                         ).show()
@@ -150,7 +139,7 @@ class UserInfo : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(
-                        this@UserInfo,
+                        this@UserStudentsDetailsActivity,
                         task.exception!!.message.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
@@ -160,7 +149,7 @@ class UserInfo : AppCompatActivity() {
 
     override fun onBackPressed() {
         Toast.makeText(
-            this@UserInfo,
+            this@UserStudentsDetailsActivity,
             "Back button is disabled",
             Toast.LENGTH_SHORT
         ).show()

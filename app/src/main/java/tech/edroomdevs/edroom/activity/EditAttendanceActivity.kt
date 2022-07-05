@@ -6,24 +6,20 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import tech.edroomdevs.edroom.databinding.ActivityDoubtDetailsBinding
+import tech.edroomdevs.edroom.databinding.ActivityEditAttendanceBinding
 import tech.edroomdevs.edroom.util.ConnectionManager
 
-class DoubtDetailsActivity : AppCompatActivity() {
+class EditAttendanceActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDoubtDetailsBinding
+    private lateinit var binding: ActivityEditAttendanceBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDoubtDetailsBinding.inflate(layoutInflater)
+        binding = ActivityEditAttendanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.tvDoubtTitle.text = intent.getStringExtra("doubtTitle")
-        binding.tvDoubtCreatedBy.text = intent.getStringExtra("doubtCreatedBy")
-        binding.tvDoubtTime.text = intent.getStringExtra("doubtTime")
-        binding.tvDoubtSubject.text = intent.getStringExtra("doubtSubject")
-        binding.tvDoubtChapter.text = intent.getStringExtra("doubtChapter")
-        binding.tvDoubtDesc.text = intent.getStringExtra("doubtDesc")
+
+
     }
 
     //on resume function

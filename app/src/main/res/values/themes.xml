@@ -11,9 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here.
-        <item name="android:navigationBarColor">@drawable/pink_yellow_gradient</item>-->
-
+        <!-- Customize your theme here.-->
     </style>
 
     <style name="Theme.EdRoom.NoActionBar">
@@ -24,4 +22,59 @@
     <style name="Theme.EdRoom.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.EdRoom.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.EdRoom.BackgroundTeacherActivity">
+        <item name="android:windowBackground">
+            @drawable/user_info_bg
+        </item>
+    </style>
+
+    <style name="Theme.EdRoom.BackgroundStudentActivity">
+        <item name="android:windowBackground">
+            @drawable/user_info_bg
+        </item>
+    </style>
+
+    <style name="Theme.EdRoom.BackgroundHomeActivity">
+        <item name="android:windowBackground">
+            @drawable/main_activity_bg
+        </item>
+    </style>
+
+    <style name="Theme.EdRoom.BackgroundAddDoubtActivity">
+        <item name="android:windowBackground">
+            @drawable/user_info_bg
+        </item>
+    </style>
+
+    <style name="Theme.EdRoom.BackgroundForgotActivity">
+        <item name="android:windowBackground">
+            @drawable/forgot
+        </item>
+    </style>
+
+    <style name="Theme.EdRoom.BackgroundLoginActivity">
+        <item name="android:windowBackground">
+            @drawable/loginscreen
+        </item>
+    </style>
+
+    <style name="Theme.EdRoom.BackgroundProfileActivity">
+        <item name="android:windowBackground">
+            @drawable/profile_bg
+        </item>
+    </style>
+
+    <style name="Theme.EdRoom.BackgroundRegisterActivity">
+        <item name="android:windowBackground">
+            @drawable/register_page
+        </item>
+    </style>
+
+    <style name="Theme.EdRoom.BackgroundUserInfoActivity">
+        <item name="android:windowBackground">
+            @drawable/user_info_bg
+        </item>
+    </style>
+
 </resources>

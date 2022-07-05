@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.*
 import tech.edroomdevs.edroom.adapter.NoticeRecyclerAdapter
 import tech.edroomdevs.edroom.databinding.ActivityNoticeBoardBinding
@@ -35,6 +35,33 @@ class NoticeBoardActivity : AppCompatActivity() {
 
     }
 
+    //on resume function
+    override fun onResume() {
+        if (ConnectionManager().checkConnectivity(this)) {
+            if (noticeList.isEmpty())
+                showData()
+        } else {
+            checkInternet()
+        }
+        super.onResume()
+    }
+
+    // internet check function
+    private fun checkInternet() {
+        val dialog = MaterialAlertDialogBuilder(this)
+        dialog.setTitle("Error")
+        dialog.setMessage("Internet Connection is not Found")
+        dialog.setPositiveButton("Open Settings") { _, _ ->
+            val settingsIntent = Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS)
+            startActivity(settingsIntent)
+        }
+        dialog.setNegativeButton("Exit") { _, _ ->
+            ActivityCompat.finishAffinity(this)
+        }
+        dialog.create()
+        dialog.show()
+    }
+
     private fun showData() {
         db = FirebaseFirestore.getInstance()
         db.collection("Notices")
@@ -57,31 +84,6 @@ class NoticeBoardActivity : AppCompatActivity() {
                     recyclerNoticeAdapter.notifyDataSetChanged()
                 }
             })
-    }
-
-    override fun onResume() {
-        if (ConnectionManager().checkConnectivity(this)) {
-            if (noticeList.isEmpty())
-                showData()
-        } else {
-            checkInternet()
-        }
-        super.onResume()
-    }
-
-    private fun checkInternet() {
-        val dialog = AlertDialog.Builder(this)
-        dialog.setTitle("Error")
-        dialog.setMessage("Internet Connection is not Found")
-        dialog.setPositiveButton("Open Settings") { _, _ ->
-            val settingsIntent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
-            startActivity(settingsIntent)
-        }
-        dialog.setNegativeButton("Exit") { _, _ ->
-            ActivityCompat.finishAffinity(this)
-        }
-        dialog.create()
-        dialog.show()
     }
 
 }

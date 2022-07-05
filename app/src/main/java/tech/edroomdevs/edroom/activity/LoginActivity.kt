@@ -3,10 +3,14 @@ package tech.edroomdevs.edroom.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.text.TextUtils
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import tech.edroomdevs.edroom.databinding.ActivityLoginPageBinding
+import tech.edroomdevs.edroom.util.ConnectionManager
 
 class LoginActivity : AppCompatActivity() {
 
@@ -69,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     val intent =
-                                        Intent(this@LoginActivity, MainActivity::class.java)
+                                        Intent(this@LoginActivity, HomeActivity::class.java)
                                     intent.flags =
                                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     startActivity(intent)
@@ -98,11 +102,35 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    //on resume function
+    override fun onResume() {
+        if (!(ConnectionManager().checkConnectivity(this))) {
+            checkInternet()
+        }
+        super.onResume()
+    }
+
+    // internet check function
+    private fun checkInternet() {
+        val dialog = MaterialAlertDialogBuilder(this)
+        dialog.setTitle("Error")
+        dialog.setMessage("Internet Connection is not Found")
+        dialog.setPositiveButton("Open Settings") { _, _ ->
+            val settingsIntent = Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS)
+            startActivity(settingsIntent)
+        }
+        dialog.setNegativeButton("Exit") { _, _ ->
+            ActivityCompat.finishAffinity(this)
+        }
+        dialog.create()
+        dialog.show()
+    }
+
     override fun onStart() {
         super.onStart()
         val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser != null) {
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        if (currentUser != null && currentUser.isEmailVerified) {
+            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
             startActivity(intent)
             finish()
         }

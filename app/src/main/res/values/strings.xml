@@ -1,4 +1,16 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string-array name="semester">
+        <item>first</item>
+        <item>second</item>
+        <item>third</item>
+        <item>fourth</item>
+        <item>fifth</item>
+        <item>sixth</item>
+        <item>seventh</item>
+        <item>eighth</item>
+    </string-array>
+
 
     <string-array name="year">
         <item>First</item>
@@ -80,6 +92,29 @@
     <string name="enter_your_doubt_title">Enter your Doubt Title</string>
     <string name="subject">Subject</string>
     <string name="chapter">Chapter</string>
-    <string name="enter_your_doubt_description">Enter your Doubt Description...</string>
+    <string name="enter_your_doubt_description">Enter your Doubt Description…</string>
     <string name="preference_file_name">userName</string>
+    <string name="unique_code">Unique Code</string>
+    <string name="you_are">You are :</string>
+    <string name="teacher">Teacher</string>
+    <string name="student">Student</string>
+    <string name="zero">0</string>
+    <string name="newAttendance">New</string>
+    <string name="EditAttendance">Edit</string>
+    <string name="jan_01_2022">JAN 01 2022</string>
+    <string name="total_attendance">Total Attendance</string>
+    <string name="score">Score</string>
+    <string name="recent">Recent</string>
+    <string name="_subject_">Subject :</string>
+    <string name="item">item</string>
+    <string name="done">Done</string>
+    <string name="present">Present</string>
+    <string name="absent">Absent</string>
+    <string name="search_resources">Search Resources …</string>
+    <string name="resource_not_found">Resource Not Found…</string>
+    <string name="addResources">AddResources</string>
+    <string name="course">Course</string>
+    <string name="pdf">Pdf</string>
+    <string name="request_contribute_resources">Request/Contribute Resources</string>
+    <string name="addRequestResourceUrl" tools:ignore="Typos">https://docs.google.com/forms/d/e/1FAIpQLSdCmN-Ndub0bMbcz38jjfmopWEVVBk4FcIBfe1MxCmvPApCvA/viewform</string>
 </resources>

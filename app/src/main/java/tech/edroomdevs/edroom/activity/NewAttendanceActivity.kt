@@ -6,24 +6,22 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import tech.edroomdevs.edroom.databinding.ActivityDoubtDetailsBinding
+import tech.edroomdevs.edroom.databinding.ActivityNewAttendanceBinding
 import tech.edroomdevs.edroom.util.ConnectionManager
 
-class DoubtDetailsActivity : AppCompatActivity() {
+class NewAttendanceActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDoubtDetailsBinding
+    private lateinit var binding: ActivityNewAttendanceBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDoubtDetailsBinding.inflate(layoutInflater)
+        binding = ActivityNewAttendanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.tvDoubtTitle.text = intent.getStringExtra("doubtTitle")
-        binding.tvDoubtCreatedBy.text = intent.getStringExtra("doubtCreatedBy")
-        binding.tvDoubtTime.text = intent.getStringExtra("doubtTime")
-        binding.tvDoubtSubject.text = intent.getStringExtra("doubtSubject")
-        binding.tvDoubtChapter.text = intent.getStringExtra("doubtChapter")
-        binding.tvDoubtDesc.text = intent.getStringExtra("doubtDesc")
+        /* binding.tvBranch.text = intent.getStringExtra("branch")
+         binding.tvSemester.text = intent.getStringExtra("semester")
+         binding.tvDate.text = intent.getStringExtra("date")
+ */
     }
 
     //on resume function

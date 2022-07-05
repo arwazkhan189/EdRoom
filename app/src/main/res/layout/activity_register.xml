@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/register_page"
     tools:context=".activity.RegisterActivity">
 
     <TextView
@@ -35,7 +34,6 @@
         app:layout_constraintTop_toBottomOf="@+id/txtCreate"
         app:layout_constraintVertical_bias="0.02" />
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etUserName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -60,7 +58,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
-
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,15 +84,67 @@
         app:startIconDrawable="@drawable/ic_password"
         app:startIconTint="@color/white">
 
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
 
-
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtUserType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/you_are"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/RadioButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        app:layout_constraintVertical_bias="0.046" />
+
+    <RadioGroup
+        android:id="@+id/RadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/txtUserType"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword"
+        app:layout_constraintVertical_bias="0.0">
+
+        <RadioButton
+            android:id="@+id/radioTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/dark_blue"
+            android:text="@string/teacher"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.478"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+        <RadioButton
+            android:id="@+id/radioStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/dark_blue"
+            android:text="@string/student"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.24"
+            app:layout_constraintStart_toEndOf="@+id/radioTeacher"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </RadioGroup>
 
     <Button
         android:id="@+id/btnSignUp"
@@ -112,8 +161,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword"
-        app:layout_constraintVertical_bias="0.01" />
+        app:layout_constraintTop_toBottomOf="@+id/RadioButton"
+        app:layout_constraintVertical_bias="0.062" />
 
     <TextView
         android:id="@+id/tvAlready"
@@ -122,11 +171,11 @@
         android:text="@string/already_have_an_account"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.250"
+        app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnSignUp"
-        app:layout_constraintVertical_bias="0.10" />
+        app:layout_constraintVertical_bias="0.23" />
 
     <TextView
         android:id="@+id/tvSignIn"
@@ -137,10 +186,10 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@id/tvAlready"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnSignUp"
-        app:layout_constraintVertical_bias="0.10" />
+        app:layout_constraintVertical_bias="0.23" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

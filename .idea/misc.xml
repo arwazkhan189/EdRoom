@@ -4,34 +4,51 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/EdRoom/app/src/main/res/drawable-v24/pink_yellow_gradient.xml" value="0.1" />
+        <entry key="..\:/EdRoom/app/src/main/res/drawable/gradient.xml" value="0.2055" />
         <entry key="..\:/EdRoom/app/src/main/res/drawable/ic_arrow.xml" value="0.1" />
         <entry key="..\:/EdRoom/app/src/main/res/drawable/ic_baseline_add.xml" value="0.2095" />
         <entry key="..\:/EdRoom/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2095" />
         <entry key="..\:/EdRoom/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1" />
         <entry key="..\:/EdRoom/app/src/main/res/drawable/ic_baseline_insert_invitation_24.xml" value="0.1" />
         <entry key="..\:/EdRoom/app/src/main/res/drawable/ic_baseline_person_pin_24.xml" value="0.1" />
+        <entry key="..\:/EdRoom/app/src/main/res/drawable/ic_edit.xml" value="0.2055" />
         <entry key="..\:/EdRoom/app/src/main/res/drawable/ic_icons8_phone.xml" value="0.1" />
+        <entry key="..\:/EdRoom/app/src/main/res/drawable/ic_search.xml" value="0.2055" />
+        <entry key="..\:/EdRoom/app/src/main/res/drawable/ic_sort.xml" value="0.2055" />
         <entry key="..\:/EdRoom/app/src/main/res/drawable/ic_undraw_male_avatar_323b.xml" value="0.1" />
         <entry key="..\:/EdRoom/app/src/main/res/drawable/image_button.xml" value="0.1" />
+        <entry key="..\:/EdRoom/app/src/main/res/drawable/rounded_corner_search.xml" value="0.2055" />
+        <entry key="..\:/EdRoom/app/src/main/res/drawable/spinner_background.xml" value="0.2055" />
         <entry key="..\:/EdRoom/app/src/main/res/font/acme.xml" value="0.1" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/activity_add_doubt.xml" value="0.19791666666666666" />
-        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_doubt_corner.xml" value="0.18072916666666666" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_add_resources.xml" value="0.12837837837837837" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_attendance_student.xml" value="0.19791666666666666" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_attendance_teacher.xml" value="0.12837837837837837" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_doubt_corner.xml" value="0.12837837837837837" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/activity_doubt_details.xml" value="0.19791666666666666" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_edit_attendance.xml" value="0.19791666666666666" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/activity_forgot.xml" value="0.19791666666666666" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_home.xml" value="0.17592592592592593" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/activity_login_page.xml" value="0.19791666666666666" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/activity_main.xml" value="0.18703703703703703" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_new_attendance.xml" value="0.12837837837837837" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/activity_notice_board.xml" value="0.19791666666666666" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/activity_notice_details.xml" value="0.19791666666666666" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/activity_profile.xml" value="0.2" />
-        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_register.xml" value="0.19791666666666666" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/activity_reset_password.xml" value="0.16" />
-        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_resource.xml" value="0.1" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_resource.xml" value="0.12837837837837837" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/activity_user_info.xml" value="0.19791666666666666" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/activity_user_teachers_details.xml" value="0.19791666666666666" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/blue_outline.xml" value="0.18072916666666666" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/filter_resources.xml" value="0.12837837837837837" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/list_dept.xml" value="0.19791666666666666" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/list_design.xml" value="0.19791666666666666" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/list_item.xml" value="0.19791666666666666" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/list_year.xml" value="0.19791666666666666" />
-        <entry key="..\:/EdRoom/app/src/main/res/layout/recycler_doubt_single_row.xml" value="0.196875" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/recycler_attendance_student_single_row.xml" value="0.264" />
+        <entry key="..\:/EdRoom/app/src/main/res/layout/recycler_doubt_single_row.xml" value="0.19791666666666666" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/recycler_notice_single_row.xml" value="0.22864583333333333" />
         <entry key="..\:/EdRoom/app/src/main/res/layout/recycler_resource_single_row.xml" value="0.19791666666666666" />
       </map>

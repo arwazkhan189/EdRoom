@@ -40,7 +40,7 @@ class NoticeRecyclerAdapter(
         val notice: Notice = noticeList[position]
         holder.tvNoticeTitle.text = notice.title
         holder.tvNoticeShortDesc.text = notice.short_description
-        Picasso.get().load(notice.image).error(R.drawable.current_notice)
+        Picasso.get().load(notice.image).error(R.drawable.notice_image)
             .into(holder.imgNoticeImage)
         holder.btnReadDetails.setOnClickListener {
             val intent = Intent(context, NoticeDetailsActivity::class.java)
