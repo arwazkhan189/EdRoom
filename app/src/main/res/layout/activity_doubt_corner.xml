@@ -34,6 +34,20 @@
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/btnMyDoubts"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/pink"
+                android:text="@string/my_doubts"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/ic_baseline_question_answer_24"
+                app:iconGravity="end"
+                app:iconPadding="5dp" />
+
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -42,7 +56,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/AppBar"
-        android:layout_margin="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
         tools:listitem="@layout/recycler_doubt_single_row" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

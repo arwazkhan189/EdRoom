@@ -1,10 +1,10 @@
 package tech.edroomdevs.edroom.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
@@ -82,7 +82,7 @@ class RegisterActivity : AppCompatActivity() {
                             if (youAre == "student") {
                                 val intent = Intent(
                                     this@RegisterActivity,
-                                    UserStudentsDetailsActivity::class.java
+                                    AddStudentDetailsActivity::class.java
                                 )
                                 intent.flags =
                                     Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -95,7 +95,7 @@ class RegisterActivity : AppCompatActivity() {
                                 val intent =
                                     Intent(
                                         this@RegisterActivity,
-                                        UserTeachersDetailsActivity::class.java
+                                        AddTeacherDetailsActivity::class.java
                                     )
                                 intent.flags =
                                     Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

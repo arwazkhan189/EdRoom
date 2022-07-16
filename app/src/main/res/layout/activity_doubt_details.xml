@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     android:backgroundTint="@color/dark_blue">
 
     <com.google.android.material.card.MaterialCardView
@@ -61,7 +60,7 @@
                     android:layout_weight="0.5"
                     android:text="@string/by"
                     android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <TextView
@@ -71,7 +70,7 @@
                     android:layout_weight="3"
                     android:text="@string/name"
                     android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <TextView
@@ -81,7 +80,7 @@
                     android:layout_weight="2.5"
                     android:text="@string/time"
                     android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -106,7 +105,7 @@
                     android:layout_weight="2.5"
                     android:text="@string/doubt_subject"
                     android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <TextView
@@ -116,8 +115,9 @@
                     android:layout_weight="2.5"
                     android:text="@string/doubt_chapter"
                     android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
+
             </LinearLayout>
 
             <View
@@ -125,20 +125,173 @@
                 android:layout_height="3dp"
                 android:background="@color/dark_blue" />
 
-            <TextView
-                android:id="@+id/tvDoubtDesc"
-                android:layout_width="wrap_content"
+            <!-- Download delete share-->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:lineSpacingExtra="3dp"
-                android:text="@string/long_desc"
-                android:textAlignment="center"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="italic" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSeeImage"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:backgroundTint="@color/dark_blue"
+                    android:text="@string/image"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="50pt"
+                    app:icon="@drawable/ic_baseline_open_in_new_24"
+                    app:iconGravity="textEnd"
+                    app:iconPadding="4dp" />
+
+                <Button
+                    android:id="@+id/btnDeleteDoubt"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:backgroundTint="@color/dark_blue"
+                    android:text="@string/delete"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="50pt"
+                    app:icon="@drawable/ic_baseline_delete_24"
+                    app:iconGravity="textEnd"
+                    app:iconPadding="4dp" />
+
+                <Button
+                    android:id="@+id/btnShareDoubt"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:backgroundTint="@color/dark_blue"
+                    android:text="@string/share"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="50pt"
+                    app:icon="@drawable/ic_baseline_share_24"
+                    app:iconGravity="textEnd"
+                    app:iconPadding="4dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="3dp"
+                android:background="@color/dark_blue" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ScrollView
+                    android:id="@+id/scrollLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="8dp"
+                    app:layout_constraintBottom_toTopOf="@id/guidelineDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tvDoubtDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:justificationMode="inter_word"
+                        android:text="@string/long_desc"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="italic" />
+                </ScrollView>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineDivider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="425dp" />
+
+                <TextView
+                    android:id="@+id/txtAnswers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/pink_yellow_gradient"
+                    android:text="@string/__answers"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/recyclerViewDoubtAnswers"
+                    app:layout_constraintEnd_toStartOf="@id/btnAddDoubtAnswer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/guidelineDivider" />
+
+                <Button
+                    android:id="@+id/btnAddDoubtAnswer"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/dark_blue"
+                    android:text="@string/add_answer"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="50pt"
+                    app:icon="@drawable/ic_baseline_edit_note_24"
+                    app:iconGravity="textEnd"
+                    app:iconPadding="4dp"
+                    app:layout_constraintBottom_toTopOf="@id/recyclerViewDoubtAnswers"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/txtAnswers"
+                    app:layout_constraintTop_toBottomOf="@id/guidelineDivider" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewDoubtAnswers"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/shadowBack"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="@id/guidelineDivider2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtAnswers"
+                    tools:listitem="@layout/recycler_answer_single_row" />
+
+                <TextView
+                    android:id="@+id/txtNotAnsweredYet"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="@string/has_not_answered_yet"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtAnswers" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineDivider2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="600dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
+
 
     </com.google.android.material.card.MaterialCardView>
 

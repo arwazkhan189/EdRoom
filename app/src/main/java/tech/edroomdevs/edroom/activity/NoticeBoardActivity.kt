@@ -1,15 +1,20 @@
 package tech.edroomdevs.edroom.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.*
+import tech.edroomdevs.edroom.BuildConfig
+import tech.edroomdevs.edroom.R
 import tech.edroomdevs.edroom.adapter.NoticeRecyclerAdapter
 import tech.edroomdevs.edroom.databinding.ActivityNoticeBoardBinding
 import tech.edroomdevs.edroom.model.Notice
@@ -21,6 +26,7 @@ class NoticeBoardActivity : AppCompatActivity() {
     private lateinit var recyclerNoticeAdapter: NoticeRecyclerAdapter
     private lateinit var noticeList: ArrayList<Notice>
     private lateinit var db: FirebaseFirestore
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +38,19 @@ class NoticeBoardActivity : AppCompatActivity() {
         binding.recyclerViewNotice.setHasFixedSize(true)
         recyclerNoticeAdapter = NoticeRecyclerAdapter(this, noticeList)
         binding.recyclerViewNotice.adapter = recyclerNoticeAdapter
+
+        //sharedPreferences initialization
+        sharedPreferences =
+            getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
+
+        //showing add Notice floating button to teachers only
+        if (sharedPreferences.getString("rollNumber", "") == BuildConfig.teacherKey) {
+            binding.btnAddNotice.visibility = View.VISIBLE
+            binding.btnAddNotice.setOnClickListener {
+                val intent = Intent(this@NoticeBoardActivity, AddNoticeActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
     }
 
@@ -79,11 +98,20 @@ class NoticeBoardActivity : AppCompatActivity() {
                     for (NoticesData: DocumentChange in value?.documentChanges!!) {
                         if (NoticesData.type == DocumentChange.Type.ADDED) {
                             noticeList.add(NoticesData.document.toObject(Notice::class.java))
+                            noticeList.sortByDescending { it.noticeId }
                         }
                     }
                     recyclerNoticeAdapter.notifyDataSetChanged()
                 }
             })
+    }
+
+    // on back press go to Home Activity
+    override fun onBackPressed() {
+//        val intent = Intent(this@NoticeBoardActivity, HomeActivity::class.java)
+//        startActivity(intent)
+//        finishAffinity()
+        finish()
     }
 
 }

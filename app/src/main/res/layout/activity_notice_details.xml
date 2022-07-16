@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:backgroundTint="@color/dark_blue">
+    android:background="@color/dark_blue">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp"
-        app:layout_constraintBottom_toTopOf="@id/recyclerViewNotice"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        android:layout_margin="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,14 +18,57 @@
             android:background="@drawable/gradient"
             android:orientation="vertical">
 
-            <!-- Media -->
-            <ImageView
-                android:id="@+id/imgNoticeImage"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="194dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/notice_image"
-                tools:ignore="ContentDescription" />
+                android:layout_height="wrap_content">
+
+                <!-- Media -->
+                <ImageView
+                    android:id="@+id/imgNoticeImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/notice_image"
+                    tools:ignore="ContentDescription" />
+
+                <ImageButton
+                    android:id="@+id/btnDownloadNotice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|start"
+                    android:background="#2B295E5E"
+                    android:padding="8dp"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_baseline_download_24"
+                    app:tint="@color/dark_blue"
+                    tools:ignore="ContentDescription" />
+
+                <ImageButton
+                    android:id="@+id/btnDeleteNotice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:background="#2B295E5E"
+                    android:padding="8dp"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_baseline_delete_24"
+                    android:visibility="invisible"
+                    app:tint="@color/dark_blue"
+                    tools:ignore="ContentDescription" />
+
+                <ImageButton
+                    android:id="@+id/btnShareNotice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:background="#2B295E5E"
+                    android:padding="8dp"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_baseline_share_24"
+                    app:tint="@color/dark_blue"
+                    tools:ignore="ContentDescription" />
+            </FrameLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,24 +93,27 @@
                     android:layout_height="3dp"
                     android:background="@color/dark_blue" />
 
-                <TextView
-                    android:id="@+id/tvNoticeDesc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:lineSpacingExtra="3dp"
-                    android:text="@string/long_desc"
-                    android:textAlignment="center"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="italic" />
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvNoticeDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:justificationMode="inter_word"
+                        android:text="@string/long_desc"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="italic" />
+                </ScrollView>
 
             </LinearLayout>
+
 
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
-
-</com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

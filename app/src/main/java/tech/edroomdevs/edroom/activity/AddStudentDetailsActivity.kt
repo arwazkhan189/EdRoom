@@ -1,10 +1,12 @@
 package tech.edroomdevs.edroom.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
@@ -14,7 +16,7 @@ import tech.edroomdevs.edroom.databinding.ActivityUserInfoBinding
 import tech.edroomdevs.edroom.model.User
 import tech.edroomdevs.edroom.util.ConnectionManager
 
-class UserStudentsDetailsActivity : AppCompatActivity() {
+class AddStudentDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserInfoBinding
     private lateinit var auth: FirebaseAuth
@@ -39,31 +41,31 @@ class UserStudentsDetailsActivity : AppCompatActivity() {
         binding.btnRegisterSubmit.setOnClickListener {
             if (binding.etRegisterFullName.text.toString() == "") {
                 Toast.makeText(
-                    this@UserStudentsDetailsActivity,
+                    this@AddStudentDetailsActivity,
                     "Please enter your full name.",
                     Toast.LENGTH_SHORT
                 ).show()
             } else if (binding.etRegisterDept.editableText.toString() == "Department") {
                 Toast.makeText(
-                    this@UserStudentsDetailsActivity,
+                    this@AddStudentDetailsActivity,
                     "Please select your Department...",
                     Toast.LENGTH_SHORT
                 ).show()
             } else if (binding.etRegisterYear.editableText.toString() == "Year Of Study") {
                 Toast.makeText(
-                    this@UserStudentsDetailsActivity,
+                    this@AddStudentDetailsActivity,
                     "Please select Year of Study...",
                     Toast.LENGTH_SHORT
                 ).show()
             } else if (binding.etRegisterRollNo.text.toString() == "") {
                 Toast.makeText(
-                    this@UserStudentsDetailsActivity,
+                    this@AddStudentDetailsActivity,
                     "Please enter your roll no.",
                     Toast.LENGTH_SHORT
                 ).show()
             } else if (binding.etRegisterMobileNo.text.toString() == "") {
                 Toast.makeText(
-                    this@UserStudentsDetailsActivity,
+                    this@AddStudentDetailsActivity,
                     "Please enter your mobile number.",
                     Toast.LENGTH_SHORT
                 ).show()
@@ -107,12 +109,12 @@ class UserStudentsDetailsActivity : AppCompatActivity() {
                     val user = FirebaseAuth.getInstance().currentUser
                     if (user!!.isEmailVerified) {
                         Toast.makeText(
-                            this@UserStudentsDetailsActivity,
+                            this@AddStudentDetailsActivity,
                             "You are Login successfully.",
                             Toast.LENGTH_SHORT
                         ).show()
                         val intent =
-                            Intent(this@UserStudentsDetailsActivity, HomeActivity::class.java)
+                            Intent(this@AddStudentDetailsActivity, HomeActivity::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         val userInfo =
@@ -131,7 +133,7 @@ class UserStudentsDetailsActivity : AppCompatActivity() {
                         finish()
                     } else {
                         Toast.makeText(
-                            this@UserStudentsDetailsActivity,
+                            this@AddStudentDetailsActivity,
                             "Verify your email first...",
                             Toast.LENGTH_SHORT
                         ).show()
@@ -139,7 +141,7 @@ class UserStudentsDetailsActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(
-                        this@UserStudentsDetailsActivity,
+                        this@AddStudentDetailsActivity,
                         task.exception!!.message.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
@@ -149,7 +151,7 @@ class UserStudentsDetailsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         Toast.makeText(
-            this@UserStudentsDetailsActivity,
+            this@AddStudentDetailsActivity,
             "Back button is disabled",
             Toast.LENGTH_SHORT
         ).show()

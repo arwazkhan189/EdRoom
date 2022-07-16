@@ -28,55 +28,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="191dp" />
 
-    <!--<Spinner
-        android:id="@+id/etDept"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@id/etSemester"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline4"
-        tools:listitem="@layout/list_design" />
-
-    <Spinner
-        android:id="@+id/etSemester"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@id/etSubject"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etDept"
-        tools:listitem="@layout/list_design" />
-
-    <Spinner
-        android:id="@+id/etSubject"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@id/etDate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etSemester"
-        tools:listitem="@layout/list_design" />
-
-    <Spinner
-        android:id="@+id/etDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etSubject"
-        tools:listitem="@layout/list_design" />-->
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etDept"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"

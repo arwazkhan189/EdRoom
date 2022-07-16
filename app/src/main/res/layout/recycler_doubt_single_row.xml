@@ -121,6 +121,8 @@
                     android:id="@+id/tvDoubtDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="2"
                     android:maxLines="2"
                     android:scrollHorizontally="false"
                     android:text="@string/this_is_short_description_of_your_doubt"

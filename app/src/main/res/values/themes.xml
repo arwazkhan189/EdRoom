@@ -35,6 +35,19 @@
         </item>
     </style>
 
+    <style name="Theme.EdRoom.BackgroundAddNoticeActivity">
+        <item name="android:windowBackground">
+            @drawable/user_info_bg
+        </item>
+    </style>
+
+    <style name="Theme.EdRoom.BackgroundAddDoubtAnswerActivity">
+        <item name="android:windowBackground">
+            @drawable/user_info_bg
+        </item>
+    </style>
+    @style/Theme.EdRoom.BackgroundAddDoubtAnswerActivity
+
     <style name="Theme.EdRoom.BackgroundHomeActivity">
         <item name="android:windowBackground">
             @drawable/main_activity_bg

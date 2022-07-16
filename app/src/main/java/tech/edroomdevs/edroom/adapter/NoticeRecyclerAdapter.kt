@@ -19,12 +19,12 @@ class NoticeRecyclerAdapter(
 ) : RecyclerView.Adapter<NoticeRecyclerAdapter.NoticeViewHolder>() {
 
     class NoticeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvNoticeTitle: TextView = view.findViewById(R.id.tvNoticeTitle)
-        val tvNoticeShortDesc: TextView = view.findViewById(R.id.tvNoticeShortDesc)
         val imgNoticeImage: ImageView = view.findViewById(R.id.imgNoticeImage)
+        val tvNoticeTitle: TextView = view.findViewById(R.id.tvNoticeTitle)
+        val tvNoticeDate: TextView = view.findViewById(R.id.tvNoticeDate)
+        val tvNoticeDesc: TextView = view.findViewById(R.id.tvNoticeDesc)
         val btnReadDetails: com.google.android.material.button.MaterialButton =
             view.findViewById(R.id.btnReadDetails)
-        //val tvNoticeDesc: TextView = view.findViewById(R.id.tvNoticeDesc)
     }
 
     override fun onCreateViewHolder(
@@ -38,15 +38,20 @@ class NoticeRecyclerAdapter(
 
     override fun onBindViewHolder(holder: NoticeViewHolder, position: Int) {
         val notice: Notice = noticeList[position]
-        holder.tvNoticeTitle.text = notice.title
-        holder.tvNoticeShortDesc.text = notice.short_description
-        Picasso.get().load(notice.image).error(R.drawable.notice_image)
+        holder.tvNoticeTitle.text = notice.noticeTitle
+        holder.tvNoticeDesc.text = notice.noticeDescription
+        holder.tvNoticeDate.text = notice.noticeDate
+        Picasso.get().load(notice.noticeImageUrl).error(R.drawable.notice_image)
             .into(holder.imgNoticeImage)
         holder.btnReadDetails.setOnClickListener {
             val intent = Intent(context, NoticeDetailsActivity::class.java)
-            intent.putExtra("title", notice.title)
-            intent.putExtra("description", notice.description)
-            intent.putExtra("image", notice.image)
+            intent.putExtra("noticeId", notice.noticeId)
+            intent.putExtra("noticeTitle", notice.noticeTitle)
+            intent.putExtra("noticeDescription", notice.noticeDescription)
+            intent.putExtra("noticeImageUrl", notice.noticeImageUrl)
+            intent.putExtra("noticeByTeacher", notice.noticeByTeacher)
+            intent.putExtra("noticeImageTitle", notice.noticeImageTitle)
+            intent.putExtra("noticeDate", notice.noticeDate)
             context.startActivity(intent)
         }
     }

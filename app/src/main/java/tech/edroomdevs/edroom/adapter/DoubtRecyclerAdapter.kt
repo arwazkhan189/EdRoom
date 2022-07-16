@@ -27,8 +27,7 @@ class DoubtRecyclerAdapter(
         val tvDoubtSubject: TextView = view.findViewById(R.id.tvDoubtSubject)
         val tvDoubtChapter: TextView = view.findViewById(R.id.tvDoubtChapter)
         val tvDoubtDesc: TextView = view.findViewById(R.id.tvDoubtDesc)
-
-        //val tvDoubtAnswerCount: TextView = view.findViewById(R.id.tvDoubtAnswerCount)
+        val tvDoubtAnswerCount: TextView = view.findViewById(R.id.tvDoubtAnswerCount)
         val btnDoubtDetails: com.google.android.material.button.MaterialButton =
             view.findViewById(R.id.btnDoubtDetails)
     }
@@ -48,17 +47,28 @@ class DoubtRecyclerAdapter(
         holder.tvDoubtSubject.text = model.doubtSubject
         holder.tvDoubtChapter.text = model.doubtChapter
         holder.tvDoubtDesc.text = model.doubtDesc
-        //holder.tvDoubtAnswerCount.text = model.doubtAnswerCount
+        if (model.answersArray == null)
+            holder.tvDoubtAnswerCount.text = "0"
+        else
+            holder.tvDoubtAnswerCount.text = model.answersArray.size.toString()
+
         holder.btnDoubtDetails.setOnClickListener {
             val intent = Intent(context, DoubtDetailsActivity::class.java)
+            intent.putExtra("doubtId", model.doubtId)
             intent.putExtra("doubtTitle", model.doubtTitle)
             intent.putExtra("doubtCreatedBy", model.doubtCreatedBy)
             intent.putExtra("doubtTime", dateTime)
             intent.putExtra("doubtSubject", model.doubtSubject)
             intent.putExtra("doubtChapter", model.doubtChapter)
             intent.putExtra("doubtDesc", model.doubtDesc)
+            intent.putExtra("doubtImageUrl", model.doubtImageUrl)
+            intent.putExtra("userId", model.userId)
+            intent.putExtra("doubtImageTitle", model.doubtImageTitle)
+            intent.putExtra("answersArray", model.answersArray!!.size.toString())
             context.startActivity(intent)
         }
     }
+
 }
+
 

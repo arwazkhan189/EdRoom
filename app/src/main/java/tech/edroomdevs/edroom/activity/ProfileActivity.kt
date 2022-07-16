@@ -2,11 +2,11 @@ package tech.edroomdevs.edroom.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
@@ -28,10 +28,21 @@ class ProfileActivity : AppCompatActivity() {
 
         //update button
         binding.btnProfileUpdate.setOnClickListener {
-            updateUserData()
-            // reload after update
-            recreate()
-            Toast.makeText(this@ProfileActivity, "Update Successfully!!!", Toast.LENGTH_SHORT)
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Do you want to update your profile?")
+                .setPositiveButton("OK") { _, _ ->
+                    updateUserData()
+                    // reload after update
+                    recreate()
+                    Toast.makeText(
+                        this@ProfileActivity,
+                        "Update Successfully!!!",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                .setNeutralButton("CANCEL") { _, _ ->
+                }
                 .show()
         }
 

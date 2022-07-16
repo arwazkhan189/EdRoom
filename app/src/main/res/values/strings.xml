@@ -64,7 +64,7 @@
     <string name="resources">Resources</string>
     <string name="resource_name">Resource Name</string>
     <string name="resource_category">Resource Category</string>
-    <string name="long_desc">One important aspect of communication is business communication, also known as formal communication. Formal letters, memos, circulars etc are all forms of business communication. Another important tool of the same is a notice. Let us learn the meaning of notices and details of notice-writing.</string>
+    <string name="long_desc">One important aspect of communication is business communication, also known as formal communication. Formal letters, memos, circulars etc are all forms of business communication. Another important tool of the same is a notice. Let us learn the meaning of notices and details of notice-writing.One important aspect of communication is business communication, also known as formal communication. Formal letters, memos, circulars etc are all forms of business communication. Another important tool of the same is a notice. Let us learn the meaning of notices and details of notice-writing.One important aspect of communication is business communication, also known as formal communication. Formal letters, memos, circulars etc are all forms of business communication. Another important tool of the same is a notice. Let us learn the meaning of notices and details of notice-writing.</string>
     <string name="title_activity_doubt_corner">DoubtCornerActivity</string>
     <string name="sign_out">Sign Out</string>
     <string name="name">Name</string>
@@ -117,4 +117,22 @@
     <string name="pdf">Pdf</string>
     <string name="request_contribute_resources">Request/Contribute Resources</string>
     <string name="addRequestResourceUrl" tools:ignore="Typos">https://docs.google.com/forms/d/e/1FAIpQLSdCmN-Ndub0bMbcz38jjfmopWEVVBk4FcIBfe1MxCmvPApCvA/viewform</string>
+    <string name="addNotice">addNotice</string>
+    <string name="download">Download</string>
+    <string name="share">Share</string>
+    <string name="add_notice">Add Notice</string>
+    <string name="notice_title">Notice Title</string>
+    <string name="write_notice_description">Write Notice Description</string>
+    <string name="please_select_an_image">Please select an Image…</string>
+    <string name="image_uploading">Image Uploading…</string>
+    <string name="delete">Delete</string>
+    <string name="search_doubts">Search Doubts…</string>
+    <string name="please_click_on_the_image_upload_button_first">Please click on the image upload button first…</string>
+    <string name="my_doubts">My Doubts</string>
+    <string name="your_answer">Your Answer</string>
+    <string name="enter_your_answer">Enter your answer…</string>
+    <string name="image">Image</string>
+    <string name="__answers">Answers :</string>
+    <string name="add_answer">Add Answer</string>
+    <string name="has_not_answered_yet">has not answered yet…</string>
 </resources>

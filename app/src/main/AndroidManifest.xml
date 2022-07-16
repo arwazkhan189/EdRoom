@@ -5,6 +5,8 @@
     <!-- users permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +15,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EdRoom">
+        <activity
+            android:name=".activity.AnswerDetailsActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.AddAnswerActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.EdRoom.BackgroundAddDoubtAnswerActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.MyDoubtsActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.AddNoticeActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.EdRoom.BackgroundAddNoticeActivity"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.AddResourcesActivity"
             android:configChanges="orientation|screenSize"
@@ -46,7 +74,7 @@
             android:theme="@style/Theme.EdRoom.BackgroundStudentActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.UserTeachersDetailsActivity"
+            android:name=".activity.AddTeacherDetailsActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -85,7 +113,7 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.UserStudentsDetailsActivity"
+            android:name=".activity.AddStudentDetailsActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"

@@ -28,7 +28,7 @@
             <ImageView
                 android:id="@+id/imgNoticeImage"
                 android:layout_width="match_parent"
-                android:layout_height="194dp"
+                android:layout_height="195dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/notice_image"
                 tools:ignore="ContentDescription" />
@@ -37,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingHorizontal="8dp"
+                android:paddingTop="8dp">
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
@@ -50,10 +51,23 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvNoticeShortDesc"
+                    android:id="@+id/tvNoticeDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:text="@string/date"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvNoticeDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:justificationMode="inter_word"
+                    android:lines="2"
+                    android:maxLines="2"
                     android:text="@string/this_is_a_short_description_about_the_notice"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="@color/white"
@@ -66,7 +80,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_marginHorizontal="8dp"
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton

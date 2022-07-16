@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.UserStudentsDetailsActivity"
-    tools:ignore="ExtraText">
+    tools:context=".activity.AddStudentDetailsActivity">
 
     <TextView
         android:id="@+id/txtUserDetails"
@@ -100,7 +99,7 @@
             android:id="@+id/etRegisterMobileNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="phone" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
