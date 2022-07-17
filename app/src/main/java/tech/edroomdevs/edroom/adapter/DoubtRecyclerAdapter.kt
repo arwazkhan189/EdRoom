@@ -64,7 +64,6 @@ class DoubtRecyclerAdapter(
             intent.putExtra("doubtImageUrl", model.doubtImageUrl)
             intent.putExtra("userId", model.userId)
             intent.putExtra("doubtImageTitle", model.doubtImageTitle)
-            intent.putExtra("answersArray", model.answersArray!!.size.toString())
             context.startActivity(intent)
         }
     }

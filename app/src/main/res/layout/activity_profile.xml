@@ -67,22 +67,6 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tlDepartment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/department">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etProfileDepartment"
-                    android:layout_width="match_parent"
-                    android:layout_height="78dp"
-                    android:backgroundTint="@color/white"
-                    android:drawableStart="@drawable/ic_icons8_phone"
-                    android:padding="10dp"
-                    android:text="@string/user_department" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tlEmail"
@@ -97,6 +81,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:inputType="textEmailAddress"
                     android:padding="10dp"
                     android:text="@string/abc_gmail_com" />
 
@@ -115,32 +100,35 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     android:drawableStart="@drawable/ic_icons8_phone"
+                    android:inputType="phone"
+                    android:maxLength="10"
                     android:padding="10dp"
                     android:text="@string/number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tlYearOfStudy"
+                android:id="@+id/tlDept"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/year_of_study">
+                android:layout_marginHorizontal="5dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etProfileYearOfStudy"
+                <AutoCompleteTextView
+                    android:id="@+id/etProfileDepartment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:drawableStart="@drawable/ic_baseline_insert_invitation_24"
-                    android:padding="10dp"
-                    android:text="@string/third" />
+                    android:inputType="none"
+                    android:text="@string/department"
+                    tools:ignore="LabelFor" />
+
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tlRollNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginVertical="10dp"
                 android:hint="@string/roll_number">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -149,8 +137,27 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     android:drawableStart="@drawable/ic_baseline_person_pin_24"
+                    android:inputType="number"
                     android:padding="10dp"
                     android:text="@string/_123456789" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tlYearOfStudy"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="05dp"
+                android:layout_marginTop="0dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/etProfileYearOfStudy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:text="@string/year_of_study"
+                    tools:ignore="LabelFor" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
 

@@ -100,7 +100,7 @@
             android:id="@+id/etRegisterRollNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,7 +120,8 @@
             android:id="@+id/etRegisterMobileNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:maxLength="10" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

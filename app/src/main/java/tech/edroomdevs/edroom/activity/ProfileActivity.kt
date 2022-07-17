@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -14,6 +16,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import tech.edroomdevs.edroom.BuildConfig
+import tech.edroomdevs.edroom.R
 import tech.edroomdevs.edroom.databinding.ActivityProfileBinding
 import tech.edroomdevs.edroom.util.ConnectionManager
 
@@ -25,6 +28,20 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Year of study
+        binding.etProfileYearOfStudy.setOnClickListener {
+            val itemsYear = resources.getStringArray(R.array.year)
+            val adapterYear = ArrayAdapter(this, R.layout.list_design, itemsYear)
+            (binding.etProfileYearOfStudy as? AutoCompleteTextView)?.setAdapter(adapterYear)
+        }
+
+        // Department
+        binding.etProfileDepartment.setOnClickListener {
+            val itemsDept = resources.getStringArray(R.array.dept)
+            val adapterDept = ArrayAdapter(this, R.layout.list_design, itemsDept)
+            (binding.etProfileDepartment as? AutoCompleteTextView)?.setAdapter(adapterDept)
+        }
 
         //update button
         binding.btnProfileUpdate.setOnClickListener {

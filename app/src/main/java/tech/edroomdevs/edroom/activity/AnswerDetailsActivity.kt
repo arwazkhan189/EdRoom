@@ -43,7 +43,7 @@ class AnswerDetailsActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                FullImageView(this).showFullImageView(Uri.parse(intent.getStringExtra("answerImage")))
+                FullImageView(this).showFullImageView(Uri.parse(intent.getStringExtra("answerImageUrl")))
             }
         }
 

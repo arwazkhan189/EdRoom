@@ -151,22 +151,53 @@ class DoubtDetailsActivity : AppCompatActivity() {
     //delete doubt function
     private fun deleteDoubt(doubtId: String) {
         db = FirebaseFirestore.getInstance()
-        db.collection("Doubts").document(doubtId)
-            .delete()
-            .addOnSuccessListener {
-                //delete image from firestore also
-                storageRef.child("Doubts/${intent.getStringExtra("doubtImageTitle")}").delete()
 
-                Toast.makeText(
-                    this@DoubtDetailsActivity,
-                    "Doubt successfully deleted!",
-                    Toast.LENGTH_SHORT
-                ).show()
+        //first delete all the images of answers
+        db.collection("Answers").whereEqualTo("answeredDoubtId", doubtId).get()
+            .addOnSuccessListener { documents ->
+                for (document in documents)
+                    storageRef.child("Answers/${document.data["answerImageTitle"]}").delete()
+
+                //then delete all the of answers doubt
+                db.collection("Doubts").document(doubtId).get().addOnSuccessListener { document ->
+
+                    val items: List<*> = document?.get("answersArray") as List<*>
+                    if (items.isNotEmpty())
+                        items.forEach {
+                            db.collection("Answers").document(it.toString()).delete()
+                        }
+
+                    //then delete the doubt
+                    db.collection("Doubts").document(doubtId)
+                        .delete()
+                        .addOnSuccessListener {
+                            //delete image from firestore also
+                            storageRef.child("Doubts/${intent.getStringExtra("doubtImageTitle")}")
+                                .delete()
+                            Toast.makeText(
+                                this@DoubtDetailsActivity,
+                                "Doubt successfully deleted!",
+                                Toast.LENGTH_SHORT
+                            ).show()
 //                val intent = Intent(this@DoubtDetailsActivity, DoubtCornerActivity::class.java)
 //                startActivity(intent)
-                finish()
-            }
-            .addOnFailureListener {
+                            finish()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(
+                                this@DoubtDetailsActivity,
+                                "Error deleting Doubt...",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                }.addOnFailureListener {
+                    Toast.makeText(
+                        this@DoubtDetailsActivity,
+                        "Error deleting Doubt...",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }.addOnFailureListener {
                 Toast.makeText(
                     this@DoubtDetailsActivity,
                     "Error deleting Doubt...",
@@ -184,7 +215,9 @@ class DoubtDetailsActivity : AppCompatActivity() {
         val query = answerCollection.whereEqualTo("answeredDoubtId", doubtId)
             .orderBy("answerTime", Query.Direction.DESCENDING)
         val recyclerViewOptions =
-            FirestoreRecyclerOptions.Builder<Answer>().setQuery(query, Answer::class.java).build()
+            FirestoreRecyclerOptions.Builder<Answer>()
+                .setQuery(query, Answer::class.java)
+                .build()
         answerRecyclerAdapter = AnswerRecyclerAdapter(recyclerViewOptions, this)
         binding.recyclerViewDoubtAnswers.adapter = answerRecyclerAdapter
         binding.recyclerViewDoubtAnswers.layoutManager =
