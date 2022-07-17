@@ -5,11 +5,13 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
@@ -19,6 +21,9 @@ import tech.edroomdevs.edroom.R
 import tech.edroomdevs.edroom.daos.AnswerDao
 import tech.edroomdevs.edroom.databinding.ActivityAddDoubtAnswerBinding
 import tech.edroomdevs.edroom.util.ConnectionManager
+import tech.edroomdevs.edroom.util.ImageCompression
+import java.io.File
+
 
 class AddAnswerActivity : AppCompatActivity() {
 
@@ -124,7 +129,15 @@ class AddAnswerActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImageCode) {
-            imageUri = data?.data
+            val file = File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "EdRoom"
+            )
+            imageUri =
+                ImageCompression(applicationContext).compress(
+                    (data?.data).toString(),
+                    file
+                ).toUri()
             binding.tvAnswerImagePickup.text =
                 (imageUri.toString().split("%2F", "/").last())
             binding.tvPressUploadButton.visibility = View.VISIBLE
@@ -201,3 +214,4 @@ class AddAnswerActivity : AppCompatActivity() {
     }
 
 }
+
