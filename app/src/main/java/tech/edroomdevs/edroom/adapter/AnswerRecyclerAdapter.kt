@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import tech.edroomdevs.edroom.R
-import tech.edroomdevs.edroom.activity.AnswerDetailsActivity
+import tech.edroomdevs.edroom.activity.doubtcorner.AnswerDetailsActivity
 import tech.edroomdevs.edroom.model.Answer
 import tech.edroomdevs.edroom.util.DateTime
 

@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import tech.edroomdevs.edroom.R
-import tech.edroomdevs.edroom.activity.NoticeDetailsActivity
+import tech.edroomdevs.edroom.activity.noticeboard.NoticeDetailsActivity
 import tech.edroomdevs.edroom.model.Notice
 
 class NoticeRecyclerAdapter(

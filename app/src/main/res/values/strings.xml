@@ -135,4 +135,12 @@
     <string name="__answers">Answers :</string>
     <string name="add_answer">Add Answer</string>
     <string name="has_not_answered_yet">has not answered yet…</string>
+    <string name="onBoarding1_title">Attendance</string>
+    <string name="onBoarding1_text">Manage attendance easily, Also get the attendance percentage </string>
+    <string name="onBoarding2_title">Doubt Corner</string>
+    <string name="onBoarding2_text">Ask any doubt anytime regarding college activities, study, notices, etc.</string>
+    <string name="onBoarding3_title">Resources</string>
+    <string name="onBoarding3_text">Search and download notes, add relevant tags and upload your notes.</string>
+    <string name="skip">Skip</string>
+    <string name="get_started">Get started</string>
 </resources>

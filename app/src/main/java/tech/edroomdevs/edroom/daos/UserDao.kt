@@ -8,7 +8,7 @@ import tech.edroomdevs.edroom.model.User
 
 class UserDao {
     private val db = FirebaseFirestore.getInstance()
-    private val usersCollection = db.collection("Users")
+    val usersCollection = db.collection("Users")
 
     fun addUser(user: User?) {
         user?.let {

@@ -18,151 +18,157 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EdRoom">
         <activity
-            android:name=".activity.AnswerDetailsActivity"
+            android:name=".activity.doubtcorner.AnswerDetailsActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.AddAnswerActivity"
+            android:name=".activity.doubtcorner.AddAnswerActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundAddDoubtAnswerActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.MyDoubtsActivity"
+            android:name=".activity.doubtcorner.MyDoubtsActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.AddNoticeActivity"
+            android:name=".activity.noticeboard.AddNoticeActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundAddNoticeActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.AddResourcesActivity"
+            android:name=".activity.resources.AddResourcesActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.EditAttendanceActivity"
+            android:name=".activity.attendance.EditAttendanceActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.NewAttendanceActivity"
+            android:name=".activity.attendance.NewAttendanceActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.AttendanceTeacherActivity"
+            android:name=".activity.attendance.AttendanceTeacherActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundTeacherActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.AttendanceStudentActivity"
+            android:name=".activity.attendance.AttendanceStudentActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundStudentActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.AddTeacherDetailsActivity"
+            android:name=".activity.login_signin.AddTeacherDetailsActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundUserInfoActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.ProfileActivity"
+            android:name=".activity.home_profile.ProfileActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundProfileActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.DoubtDetailsActivity"
+            android:name=".activity.doubtcorner.DoubtDetailsActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.AddDoubtActivity"
+            android:name=".activity.doubtcorner.AddDoubtActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundAddDoubtActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.DoubtCornerActivity"
+            android:name=".activity.doubtcorner.DoubtCornerActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.NoticeDetailsActivity"
+            android:name=".activity.noticeboard.NoticeDetailsActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.AddStudentDetailsActivity"
+            android:name=".activity.login_signin.AddStudentDetailsActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundUserInfoActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.ForgotActivity"
+            android:name=".activity.login_signin.ForgotActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundForgotActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".activity.login_signin.RegisterActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundRegisterActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.login_signin.LoginActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundLoginActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.ResourceActivity"
+            android:name=".activity.resources.ResourceActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.NoticeBoardActivity"
+            android:name=".activity.noticeboard.NoticeBoardActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".activity.home_profile.HomeActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.EdRoom.BackgroundHomeActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.SplashScreenActivity"
+            android:name=".activity.splash_onboarding.OnboardingScreen"
+            android:configChanges="orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.splash_onboarding.SplashScreenActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"

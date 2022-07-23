@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import tech.edroomdevs.edroom.R
-import tech.edroomdevs.edroom.activity.DoubtDetailsActivity
+import tech.edroomdevs.edroom.activity.doubtcorner.DoubtDetailsActivity
 import tech.edroomdevs.edroom.model.Doubt
 import tech.edroomdevs.edroom.util.DateTime
 
