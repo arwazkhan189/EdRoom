@@ -108,9 +108,6 @@ class NoticeBoardActivity : AppCompatActivity() {
 
     // on back press go to Home Activity
     override fun onBackPressed() {
-//        val intent = Intent(this@NoticeBoardActivity, HomeActivity::class.java)
-//        startActivity(intent)
-//        finishAffinity()
         finish()
     }
 

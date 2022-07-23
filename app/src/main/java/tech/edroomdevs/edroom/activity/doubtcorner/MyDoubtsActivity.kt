@@ -80,9 +80,6 @@ class MyDoubtsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-//        val intent = Intent(this@MyDoubtsActivity, DoubtCornerActivity::class.java)
-//        startActivity(intent)
-//        finishAffinity()
         finish()
         super.onBackPressed()
     }

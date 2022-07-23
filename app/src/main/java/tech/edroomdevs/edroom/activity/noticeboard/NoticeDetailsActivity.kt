@@ -168,8 +168,6 @@ class NoticeDetailsActivity : AppCompatActivity() {
                     "Notice successfully deleted!",
                     Toast.LENGTH_SHORT
                 ).show()
-//                val intent = Intent(this@NoticeDetailsActivity, NoticeBoardActivity::class.java)
-//                startActivity(intent)
                 finish()
             }
             .addOnFailureListener {

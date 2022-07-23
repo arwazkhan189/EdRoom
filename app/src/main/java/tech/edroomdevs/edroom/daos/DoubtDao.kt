@@ -39,10 +39,5 @@ class DoubtDao {
             doubtCollection.document(doubtId).set(doubt)
         }
     }
-
-    /*private fun getDoubtById(doubtId: String): Task<DocumentSnapshot> {
-        return doubtCollection.document(doubtId).get()
-    }*/
-
 }
 

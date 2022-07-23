@@ -168,6 +168,7 @@ class AddDoubtActivity : AppCompatActivity() {
         //showing progress bar when uploading started
         binding.plUploadImage.visibility = View.VISIBLE
         binding.tvPressUploadButton.visibility = View.INVISIBLE
+        binding.btnDoubtSubmit.visibility = View.INVISIBLE
         //taking doubt title and date to rename image as doubtTitle_Date
         val doubtTitle = binding.etDoubtTitle.editableText.toString()
         val currentDate = SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(Date())
@@ -189,6 +190,7 @@ class AddDoubtActivity : AppCompatActivity() {
                 val downloadUri = task.result
                 storageImageUrl = downloadUri.toString()
                 binding.plUploadImage.visibility = View.INVISIBLE
+                binding.btnDoubtSubmit.visibility = View.VISIBLE
                 Toast.makeText(
                     this@AddDoubtActivity,
                     "Image Uploaded Successfully...",

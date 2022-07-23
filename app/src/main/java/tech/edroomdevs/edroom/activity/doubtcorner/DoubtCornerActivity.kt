@@ -97,9 +97,6 @@ class DoubtCornerActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-//        val doubtToHomeIntent = Intent(this@DoubtCornerActivity, HomeActivity::class.java)
-//        startActivity(doubtToHomeIntent)
-//        finishAffinity()
         finish()
         super.onBackPressed()
     }

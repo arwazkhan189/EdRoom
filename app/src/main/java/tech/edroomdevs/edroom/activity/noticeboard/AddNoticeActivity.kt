@@ -157,6 +157,7 @@ class AddNoticeActivity : AppCompatActivity() {
     private fun uploadNoticeImage() {
         //showing progress bar when uploading started
         binding.plUploadImage.visibility = View.VISIBLE
+        binding.btnNoticeSubmit.visibility = View.INVISIBLE
 
         //taking notice title and date to rename image as NoticeTitle_Date
         val noticeTitle = binding.etNoticeTitle.editableText.toString()
@@ -179,6 +180,7 @@ class AddNoticeActivity : AppCompatActivity() {
                 val downloadUri = task.result
                 storageImageUrl = downloadUri.toString()
                 binding.plUploadImage.visibility = View.INVISIBLE
+                binding.btnNoticeSubmit.visibility = View.VISIBLE
                 Toast.makeText(
                     this@AddNoticeActivity,
                     "Image Uploaded Successfully...",
@@ -208,16 +210,10 @@ class AddNoticeActivity : AppCompatActivity() {
         db.collection("Notices").document(noticeId)
             .set(noticeData)
             .addOnSuccessListener {
-//                val intent = Intent(this@AddNoticeActivity, NoticeBoardActivity::class.java)
-//                startActivity(intent)
-//                finishAffinity()
                 finish()
                 Toast.makeText(this@AddNoticeActivity, "Notice Submitted...", Toast.LENGTH_SHORT)
                     .show()
             }.addOnFailureListener {
-//                val intent = Intent(this@AddNoticeActivity, NoticeBoardActivity::class.java)
-//                startActivity(intent)
-//                finishAffinity()
                 finish()
                 Toast.makeText(this@AddNoticeActivity, "Some Error occurred...", Toast.LENGTH_SHORT)
                     .show()

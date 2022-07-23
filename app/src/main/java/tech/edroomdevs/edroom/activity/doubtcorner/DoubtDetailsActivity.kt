@@ -31,6 +31,8 @@ class DoubtDetailsActivity : AppCompatActivity() {
     private val storageRef = storage.reference
     private lateinit var answerRecyclerAdapter: AnswerRecyclerAdapter
     private lateinit var answerDao: AnswerDao
+    private lateinit var answerImageList: ArrayList<String>
+    private lateinit var answerList: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,10 @@ class DoubtDetailsActivity : AppCompatActivity() {
 
         //setup answer recycler view
         setUpAnswerRecyclerView()
+
+        //store data
+        answerImageList = arrayListOf()
+        answerList = arrayListOf()
 
         binding.tvDoubtTitle.text = intent.getStringExtra("doubtTitle")
         binding.tvDoubtCreatedBy.text = intent.getStringExtra("doubtCreatedBy")
@@ -101,6 +107,7 @@ class DoubtDetailsActivity : AppCompatActivity() {
         if (!(ConnectionManager().checkConnectivity(this))) {
             checkInternet()
         }
+        storeAnswerImageNameAndId(intent.getStringExtra("doubtId")!!)
         super.onResume()
     }
 
@@ -148,56 +155,60 @@ class DoubtDetailsActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(shareIntent, "Share To:"))
     }
 
-    //delete doubt function
-    private fun deleteDoubt(doubtId: String) {
+    //Store all the inner data in a list for delete answer images and descriptions
+    private fun storeAnswerImageNameAndId(doubtId: String) {
         db = FirebaseFirestore.getInstance()
 
-        //first delete all the images of answers
+        //store all the answers image name
         db.collection("Answers").whereEqualTo("answeredDoubtId", doubtId).get()
-            .addOnSuccessListener { documents ->
-                for (document in documents)
-                    storageRef.child("Answers/${document.data["answerImageTitle"]}").delete()
+            .addOnSuccessListener { imageName ->
+                if (imageName != null)
+                    for (document in imageName)
+                        if (document.data["answerImageTitle"].toString() != "Please select an Image…")
+                            answerImageList.add(document.data["answerImageTitle"].toString())
+            }
 
-                //then delete all the of answers doubt
-                db.collection("Doubts").document(doubtId).get().addOnSuccessListener { document ->
+        //store all the answers id
+        db.collection("Doubts").document(doubtId).get().addOnSuccessListener { answersArrayList ->
+            if (answersArrayList.get("answersArray") != null) {
+                val items: List<*> = answersArrayList.get("answersArray") as List<*>
+                if (items.isNotEmpty())
+                    items.forEach {
+                        answerList.add(it.toString())
+                    }
+            }
+        }
+    }
 
-                    val items: List<*> = document?.get("answersArray") as List<*>
-                    if (items.isNotEmpty())
-                        items.forEach {
-                            db.collection("Answers").document(it.toString()).delete()
-                        }
-
-                    //then delete the doubt
-                    db.collection("Doubts").document(doubtId)
+    //delete the doubt and its answer images and descriptions
+    private fun deleteDoubt(doubtId: String) {
+        db.collection("Doubts").document(doubtId)
+            .delete()
+            .addOnSuccessListener {
+                //delete image from firestore also
+                if (intent.getStringExtra("doubtImageTitle")
+                        .toString() != "Please select an Image…"
+                )
+                    storageRef.child("Doubts/${intent.getStringExtra("doubtImageTitle")}")
                         .delete()
-                        .addOnSuccessListener {
-                            //delete image from firestore also
-                            storageRef.child("Doubts/${intent.getStringExtra("doubtImageTitle")}")
-                                .delete()
-                            Toast.makeText(
-                                this@DoubtDetailsActivity,
-                                "Doubt successfully deleted!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-//                val intent = Intent(this@DoubtDetailsActivity, DoubtCornerActivity::class.java)
-//                startActivity(intent)
-                            finish()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(
-                                this@DoubtDetailsActivity,
-                                "Error deleting Doubt...",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                }.addOnFailureListener {
-                    Toast.makeText(
-                        this@DoubtDetailsActivity,
-                        "Error deleting Doubt...",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }.addOnFailureListener {
+
+                //delete if any answer present
+                if (answerList.size > 0)
+                    deleteStoredAnswer()
+
+                //delete if any answer images present
+                if (answerImageList.size > 0)
+                    deleteStoredAnswerImage()
+
+
+                Toast.makeText(
+                    this@DoubtDetailsActivity,
+                    "Doubt successfully deleted!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }
+            .addOnFailureListener {
                 Toast.makeText(
                     this@DoubtDetailsActivity,
                     "Error deleting Doubt...",
@@ -205,6 +216,23 @@ class DoubtDetailsActivity : AppCompatActivity() {
                 ).show()
             }
     }
+
+    // delete answer images if available
+    private fun deleteStoredAnswerImage() {
+        for (imageName in answerImageList) {
+            storageRef.child("Answers/$imageName").delete()
+                .addOnSuccessListener { answerImageList.remove(imageName) }
+        }
+    }
+
+    //delete answer if available
+    private fun deleteStoredAnswer() {
+        for (answerId in answerList) {
+            db.collection("Answers").document(answerId).delete()
+                .addOnSuccessListener { answerList.remove(answerId) }
+        }
+    }
+
 
     //setup recycler view function
     @SuppressLint("NotifyDataSetChanged")

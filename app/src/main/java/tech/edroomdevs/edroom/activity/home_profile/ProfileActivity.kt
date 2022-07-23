@@ -69,6 +69,9 @@ class ProfileActivity : AppCompatActivity() {
             signOutUser()
         }
 
+        //deleteAccount
+
+
     }
 
     //on resume function
@@ -101,8 +104,6 @@ class ProfileActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun getUserData() {
         val userCurrent = FirebaseAuth.getInstance().currentUser
-        /*Picasso.get().load(photoUrl.toString()).error(R.drawable.ic_undraw_male_avatar_323b)
-            .into(binding.imgProfileUser)*/
         val userId = userCurrent?.uid.toString()
         val db = FirebaseFirestore.getInstance()
         db.collection("Users")

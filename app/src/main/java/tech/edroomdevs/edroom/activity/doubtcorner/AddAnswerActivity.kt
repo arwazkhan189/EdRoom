@@ -149,6 +149,7 @@ class AddAnswerActivity : AppCompatActivity() {
         //showing progress bar when uploading started
         binding.plUploadImage.visibility = View.VISIBLE
         binding.tvPressUploadButton.visibility = View.INVISIBLE
+        binding.btnDoubtSubmit.visibility = View.INVISIBLE
         //taking answerByName title and date to rename image as answerByName_Date
         val answerByName = sharedPreferences.getString("fullName", "Name")!!
         val currentTime = System.currentTimeMillis()
@@ -173,6 +174,7 @@ class AddAnswerActivity : AppCompatActivity() {
                 val downloadUri = task.result
                 storageImageUrl = downloadUri.toString()
                 binding.plUploadImage.visibility = View.INVISIBLE
+                binding.btnDoubtSubmit.visibility = View.VISIBLE
                 Toast.makeText(
                     this@AddAnswerActivity,
                     "Image Uploaded Successfully...",
