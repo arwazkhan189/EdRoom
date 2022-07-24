@@ -29,10 +29,10 @@ class AddStudentDetailsActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        //Year of study
-        val itemsYear = resources.getStringArray(R.array.year)
-        val adapterYear = ArrayAdapter(this, R.layout.list_design, itemsYear)
-        (binding.etRegisterYear as? AutoCompleteTextView)?.setAdapter(adapterYear)
+        //Semester
+        val itemsSemester = resources.getStringArray(R.array.semester)
+        val adapterSemester = ArrayAdapter(this, R.layout.list_design, itemsSemester)
+        (binding.etRegisterSemester as? AutoCompleteTextView)?.setAdapter(adapterSemester)
 
         // Department
         val itemsDept = resources.getStringArray(R.array.dept)
@@ -52,10 +52,10 @@ class AddStudentDetailsActivity : AppCompatActivity() {
                     "Please select your Department...",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (binding.etRegisterYear.editableText.toString() == "Year Of Study") {
+            } else if (binding.etRegisterSemester.editableText.toString() == "Semester") {
                 Toast.makeText(
                     this@AddStudentDetailsActivity,
-                    "Please select Year of Study...",
+                    "Please select your semester...",
                     Toast.LENGTH_SHORT
                 ).show()
             } else if (binding.etRegisterRollNo.text.toString() == "") {
@@ -123,7 +123,7 @@ class AddStudentDetailsActivity : AppCompatActivity() {
                                 user.uid,
                                 binding.etRegisterFullName.editableText.toString(),
                                 binding.etRegisterDept.editableText.toString(),
-                                binding.etRegisterYear.editableText.toString(),
+                                binding.etRegisterSemester.editableText.toString(),
                                 binding.etRegisterRollNo.editableText.toString(),
                                 binding.etRegisterMobileNo.editableText.toString(),
                                 emailId.toString()

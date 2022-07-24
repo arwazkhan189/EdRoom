@@ -30,11 +30,11 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //Year of study
-        binding.etProfileYearOfStudy.setOnClickListener {
-            val itemsYear = resources.getStringArray(R.array.year)
-            val adapterYear = ArrayAdapter(this, R.layout.list_design, itemsYear)
-            (binding.etProfileYearOfStudy as? AutoCompleteTextView)?.setAdapter(adapterYear)
+        //semester
+        binding.etProfileSemester.setOnClickListener {
+            val itemsSemester = resources.getStringArray(R.array.semester)
+            val adapterSemester = ArrayAdapter(this, R.layout.list_design, itemsSemester)
+            (binding.etProfileSemester as? AutoCompleteTextView)?.setAdapter(adapterSemester)
         }
 
         // Department
@@ -114,15 +114,15 @@ class ProfileActivity : AppCompatActivity() {
                 binding.etProfileDepartment.setText("${document.data?.get("department")}")
                 binding.etProfileEmail.setText("${document.data?.get("userEmailId")}")
                 binding.etProfileMobileNumber.setText("${document.data?.get("mobileNumber")}")
-                //if student then show year of study and roll no.
+                //if student then show semester and roll no.
                 if ((document.data?.get("rollNumber")).toString() == BuildConfig.teacherKey
                 ) {
-                    binding.tlYearOfStudy.visibility = View.INVISIBLE
+                    binding.tlProfileSemester.visibility = View.INVISIBLE
                     binding.tlRollNo.visibility = View.INVISIBLE
                 } else {
-                    binding.tlYearOfStudy.visibility = View.VISIBLE
+                    binding.tlProfileSemester.visibility = View.VISIBLE
                     binding.tlRollNo.visibility = View.VISIBLE
-                    binding.etProfileYearOfStudy.setText("${document.data?.get("yearOfStudy")}")
+                    binding.etProfileSemester.setText("${document.data?.get("semester")}")
                     binding.etProfileRollNumber.setText("${document.data?.get("rollNumber")}")
                 }
             }.addOnFailureListener {
@@ -130,7 +130,7 @@ class ProfileActivity : AppCompatActivity() {
                 binding.etProfileDepartment.setText("Department")
                 binding.etProfileEmail.setText("abc@gmail.com")
                 binding.etProfileMobileNumber.setText("0123456789")
-                binding.etProfileYearOfStudy.setText("Third")
+                binding.etProfileSemester.setText("Third")
                 binding.etProfileRollNumber.setText("123456789")
             }
     }
@@ -155,7 +155,7 @@ class ProfileActivity : AppCompatActivity() {
                         "department" to binding.etProfileDepartment.editableText.toString(),
                         "userEmailId" to binding.etProfileEmail.editableText.toString(),
                         "mobileNumber" to binding.etProfileMobileNumber.editableText.toString(),
-                        "yearOfStudy" to binding.etProfileYearOfStudy.editableText.toString(),
+                        "semester" to binding.etProfileSemester.editableText.toString(),
                         "rollNumber" to binding.etProfileRollNumber.editableText.toString()
                     )
                 )

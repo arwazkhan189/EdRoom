@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="28dp"
-        app:layout_constraintBottom_toTopOf="@id/etYear"
+        app:layout_constraintBottom_toTopOf="@id/tlRegisterSemester"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etFullName">
@@ -63,7 +63,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etYear"
+        android:id="@+id/tlRegisterSemester"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,11 +74,11 @@
         app:layout_constraintTop_toBottomOf="@id/etDept">
 
         <AutoCompleteTextView
-            android:id="@+id/etRegisterYear"
+            android:id="@+id/etRegisterSemester"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
-            android:text="@string/year_of_study"
+            android:text="@string/semester"
             tools:ignore="LabelFor" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -94,7 +94,7 @@
         app:layout_constraintBottom_toTopOf="@id/etMobileNo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etYear">
+        app:layout_constraintTop_toBottomOf="@+id/tlRegisterSemester">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etRegisterRollNo"

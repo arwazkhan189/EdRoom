@@ -143,7 +143,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tlYearOfStudy"
+                android:id="@+id/tlProfileSemester"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -151,11 +151,11 @@
                 android:layout_marginTop="0dp">
 
                 <AutoCompleteTextView
-                    android:id="@+id/etProfileYearOfStudy"
+                    android:id="@+id/etProfileSemester"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="@string/year_of_study"
+                    android:text="@string/semester"
                     tools:ignore="LabelFor" />
 
             </com.google.android.material.textfield.TextInputLayout>

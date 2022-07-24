@@ -1,22 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <string-array name="semester">
-        <item>first</item>
-        <item>second</item>
-        <item>third</item>
-        <item>fourth</item>
-        <item>fifth</item>
-        <item>sixth</item>
-        <item>seventh</item>
-        <item>eighth</item>
-    </string-array>
-
-
-    <string-array name="year">
         <item>First</item>
         <item>Second</item>
         <item>Third</item>
         <item>Fourth</item>
+        <item>Fifth</item>
+        <item>Sixth</item>
+        <item>Seventh</item>
+        <item>Eighth</item>
     </string-array>
 
     <string-array name="dept">
@@ -60,7 +52,6 @@
     <string name="semester">Semester</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="first">first</string>
-    <string name="year_of_study">Year Of Study</string>
     <string name="resources">Resources</string>
     <string name="resource_name">Resource Name</string>
     <string name="resource_category">Resource Category</string>
