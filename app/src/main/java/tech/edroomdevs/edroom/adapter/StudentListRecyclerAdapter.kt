@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import tech.edroomdevs.edroom.R
-import tech.edroomdevs.edroom.model.StudentList
+import tech.edroomdevs.edroom.model.User
 
 class StudentListRecyclerAdapter(
-    options: FirestoreRecyclerOptions<StudentList>,
+    options: FirestoreRecyclerOptions<User>,
     private val context: Context
 ) :
-    FirestoreRecyclerAdapter<StudentList, StudentListRecyclerAdapter.StudentListViewHolder>(options) {
+    FirestoreRecyclerAdapter<User, StudentListRecyclerAdapter.StudentListViewHolder>(options) {
 
     class StudentListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvStudentName: TextView = view.findViewById(R.id.tvStudentName)
@@ -32,7 +32,7 @@ class StudentListRecyclerAdapter(
     override fun onBindViewHolder(
         holder: StudentListViewHolder,
         position: Int,
-        model: StudentList
+        model: User
     ) {
         holder.tvStudentName.text = model.fullName
         holder.tvStudentRollNumber.text = model.rollNumber

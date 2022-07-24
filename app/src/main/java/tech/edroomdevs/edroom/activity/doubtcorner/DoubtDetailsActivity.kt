@@ -178,6 +178,7 @@ class DoubtDetailsActivity : AppCompatActivity() {
                     }
             }
         }
+
     }
 
     //delete the doubt and its answer images and descriptions
