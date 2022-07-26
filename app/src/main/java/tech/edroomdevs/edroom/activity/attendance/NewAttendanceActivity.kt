@@ -13,6 +13,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.Query
 import tech.edroomdevs.edroom.adapter.IStudentListRecyclerAdapter
 import tech.edroomdevs.edroom.adapter.StudentListRecyclerAdapter
+import tech.edroomdevs.edroom.daos.AttendanceDbDao
 import tech.edroomdevs.edroom.daos.UserDao
 import tech.edroomdevs.edroom.databinding.ActivityNewAttendanceBinding
 import tech.edroomdevs.edroom.model.User
@@ -23,8 +24,9 @@ class NewAttendanceActivity : AppCompatActivity(), IStudentListRecyclerAdapter {
     private lateinit var binding: ActivityNewAttendanceBinding
     private lateinit var studentListRecyclerAdapter: StudentListRecyclerAdapter
     private lateinit var userDao: UserDao
-//    private var totalStudent = 0
-//    private var totalPresent = 0
+    private lateinit var attendanceDbDao: AttendanceDbDao
+    private var totalStudent = 0
+    private var totalPresent = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +35,14 @@ class NewAttendanceActivity : AppCompatActivity(), IStudentListRecyclerAdapter {
 
         //attendance done button
         binding.btnAttendanceDone.setOnClickListener {
-//            totalStudent = studentListRecyclerAdapter.itemCount
+            totalStudent = studentListRecyclerAdapter.itemCount
+            totalPresent = attendanceDbDao.getTotalStudentPresent(
+                intent.getStringExtra("subject").toString(),
+                intent.getStringExtra("date").toString()
+            )
             MaterialAlertDialogBuilder(this)
                 .setTitle("Are you sure to record the attendance?")
-//                .setMessage("Total Student: $totalStudent\nTotal Present: $totalPresent\nTotal Absent: ${totalStudent - totalPresent}")
+                .setMessage("Total Student: $totalStudent\nTotal Present: $totalPresent\nTotal Absent: ${totalStudent - totalPresent}")
                 .setPositiveButton("YES") { _, _ ->
                     attendanceSubmit()
                 }
@@ -96,15 +102,6 @@ class NewAttendanceActivity : AppCompatActivity(), IStudentListRecyclerAdapter {
         studentListRecyclerAdapter.notifyDataSetChanged()
     }
 
-    //attendance submit function
-    private fun attendanceSubmit() {
-        Toast.makeText(
-            this@NewAttendanceActivity,
-            "Attendance Recorded Successfully...",
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
     override fun onStart() {
         super.onStart()
         studentListRecyclerAdapter.startListening()
@@ -117,15 +114,33 @@ class NewAttendanceActivity : AppCompatActivity(), IStudentListRecyclerAdapter {
 
     //present click
     override fun onPresentClick(id: String, rollNumber: String) {
-        Toast.makeText(this@NewAttendanceActivity, "Present $rollNumber ", Toast.LENGTH_SHORT)
-            .show()
-//        totalPresent += 1
+        attendanceDbDao = AttendanceDbDao()
+        attendanceDbDao.markAttendancePresent(
+            intent.getStringExtra("subject")!!,
+            intent.getStringExtra("date")!!,
+            rollNumber
+        )
     }
 
     //absent click
     override fun onAbsentClick(id: String, rollNumber: String) {
-        Toast.makeText(this@NewAttendanceActivity, "Absent", Toast.LENGTH_SHORT).show()
-//        totalPresent -= 1
+        attendanceDbDao = AttendanceDbDao()
+        attendanceDbDao.markAttendanceAbsent(
+            intent.getStringExtra("subject")!!,
+            intent.getStringExtra("date")!!,
+            rollNumber
+        )
+    }
+
+    //attendance submit function
+    private fun attendanceSubmit() {
+        Toast.makeText(
+            this@NewAttendanceActivity,
+            "Attendance Recorded Successfully...",
+            Toast.LENGTH_SHORT
+        ).show()
+        startActivity(Intent(this@NewAttendanceActivity, AttendanceTeacherActivity::class.java))
+        finishAffinity()
     }
 
 }

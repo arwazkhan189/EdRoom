@@ -13,6 +13,7 @@ import androidx.core.widget.addTextChangedListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
 import tech.edroomdevs.edroom.R
+import tech.edroomdevs.edroom.daos.AttendanceDbDao
 import tech.edroomdevs.edroom.databinding.ActivityAttendanceTeacherBinding
 import tech.edroomdevs.edroom.util.ConnectionManager
 import java.util.*
@@ -22,6 +23,8 @@ class AttendanceTeacherActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAttendanceTeacherBinding
     private lateinit var db: FirebaseFirestore
     private var subjectList: ArrayList<String> = arrayListOf()
+    private lateinit var attendanceDbDao: AttendanceDbDao
+    private var attendanceTimes: String = "1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,34 +61,81 @@ class AttendanceTeacherActivity : AppCompatActivity() {
         )
         (binding.etAttendanceSubject as? AutoCompleteTextView)?.setAdapter(adapterSubject)
 
-        //date
+        //attendance date
         binding.etAttendanceDate.setOnClickListener {
             clickDatePicker(binding)
         }
 
+        //no of times attendance
+        binding.etAttendanceTimes.minValue = 1
+        binding.etAttendanceTimes.maxValue = 5
+        binding.etAttendanceTimes.value = 1
+        binding.etAttendanceTimes.wrapSelectorWheel = true
+        binding.etAttendanceTimes.setOnValueChangedListener { _, _, new ->
+            attendanceTimes = new.toString()
+        }
+
         //new attendance
         binding.btnAttendanceNew.setOnClickListener {
-            if (checkForInputAndGoToActivity(binding, "New Attendance...")) {
+            if (checkForInputAndGoToActivity(binding)) {
+                val branch = binding.etAttendanceDept.editableText.toString()
+                val semester = binding.etAttendanceSemester.editableText.toString()
+                val subject = binding.etAttendanceSubject.editableText.toString()
+                val date = binding.etAttendanceDate.editableText.toString()
+
                 val intent =
                     Intent(this@AttendanceTeacherActivity, NewAttendanceActivity::class.java)
-                intent.putExtra("branch", binding.etAttendanceDept.editableText.toString())
-                intent.putExtra("semester", binding.etAttendanceSemester.editableText.toString())
-                intent.putExtra("subject", binding.etAttendanceSubject.editableText.toString())
-                intent.putExtra("date", binding.etAttendanceDate.editableText.toString())
-                startActivity(intent)
+                intent.putExtra("branch", branch)
+                intent.putExtra("semester", semester)
+                intent.putExtra("subject", subject)
+                MaterialAlertDialogBuilder(this)
+                    .setTitle("Confirm New Attendance?")
+                    .setMessage("Branch: $branch\nSemester: $semester\nSubject: $subject\nDate: $date\nClass: $attendanceTimes")
+                    .setPositiveButton("YES") { _, _ ->
+                        if (attendanceTimes == "1") {
+                            intent.putExtra("date", date.replace("/", ""))
+                            createAttendanceArray(subject, date.replace("/", ""))
+                        } else {
+                            intent.putExtra("date", date.replace("/", "") + attendanceTimes)
+                            createAttendanceArray(subject, date.replace("/", "") + attendanceTimes)
+                        }
+                        startActivity(intent)
+                    }
+                    .setNeutralButton("NO") { _, _ ->
+                    }
+                    .show()
             }
         }
 
         //edit attendance
         binding.btnAttendanceEdit.setOnClickListener {
-            if (checkForInputAndGoToActivity(binding, "Edit Attendance...")) {
+            if (checkForInputAndGoToActivity(binding)) {
+                val branch = binding.etAttendanceDept.editableText.toString()
+                val semester = binding.etAttendanceSemester.editableText.toString()
+                val subject = binding.etAttendanceSubject.editableText.toString()
+                val date = binding.etAttendanceDate.editableText.toString()
+
                 val intent =
                     Intent(this@AttendanceTeacherActivity, EditAttendanceActivity::class.java)
-                intent.putExtra("branch", binding.etAttendanceDept.editableText.toString())
-                intent.putExtra("semester", binding.etAttendanceSemester.editableText.toString())
-                intent.putExtra("subject", binding.etAttendanceSubject.editableText.toString())
-                intent.putExtra("date", binding.etAttendanceDate.editableText.toString())
-                startActivity(intent)
+                intent.putExtra("branch", branch)
+                intent.putExtra("semester", semester)
+                intent.putExtra("subject", subject)
+                MaterialAlertDialogBuilder(this)
+                    .setTitle("Confirm Edit Attendance?")
+                    .setMessage("Branch: $branch\nSemester: $semester\nSubject: $subject\nDate: $date\nClass: $attendanceTimes")
+                    .setPositiveButton("YES") { _, _ ->
+                        if (attendanceTimes == "1") {
+                            intent.putExtra("date", date.replace("/", ""))
+                            createAttendanceArray(subject, date.replace("/", ""))
+                        } else {
+                            intent.putExtra("date", date.replace("/", "") + attendanceTimes)
+                            createAttendanceArray(subject, date.replace("/", "") + attendanceTimes)
+                        }
+                        startActivity(intent)
+                    }
+                    .setNeutralButton("NO") { _, _ ->
+                    }
+                    .show()
             }
         }
 
@@ -150,10 +200,7 @@ class AttendanceTeacherActivity : AppCompatActivity() {
     }
 
     // check for input
-    private fun checkForInputAndGoToActivity(
-        binding: ActivityAttendanceTeacherBinding,
-        text: String
-    ): Boolean {
+    private fun checkForInputAndGoToActivity(binding: ActivityAttendanceTeacherBinding): Boolean {
         if (binding.etAttendanceDept.editableText.toString() == "Department") {
             Toast.makeText(
                 this@AttendanceTeacherActivity,
@@ -179,14 +226,15 @@ class AttendanceTeacherActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            Toast.makeText(
-                this@AttendanceTeacherActivity,
-                text,
-                Toast.LENGTH_SHORT
-            ).show()
             return true
         }
         return false
+    }
+
+    //create attendance array
+    private fun createAttendanceArray(subject: String, dateList: String) {
+        attendanceDbDao = AttendanceDbDao()
+        attendanceDbDao.addAttendance(subject, dateList)
     }
 
 }

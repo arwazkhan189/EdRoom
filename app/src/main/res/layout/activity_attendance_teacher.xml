@@ -94,11 +94,12 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etDate"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="12.5dp"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/etAttendanceTimes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etSubject">
 
@@ -112,12 +113,23 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <NumberPicker
+        android:id="@+id/etAttendanceTimes"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="12.5dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/etDate"
+        app:layout_constraintTop_toBottomOf="@id/etSubject" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="553dp" />
+        app:layout_constraintGuide_begin="589dp" />
 
     <Button
         android:id="@+id/btnAttendanceEdit"
@@ -158,6 +170,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="672dp" />
+        app:layout_constraintGuide_begin="721dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
