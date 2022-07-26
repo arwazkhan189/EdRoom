@@ -66,7 +66,14 @@ class ProfileActivity : AppCompatActivity() {
 
         //sign out button
         binding.imgProfileSignOut.setOnClickListener {
-            signOutUser()
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Do you want to Sign Out from the App?")
+                .setPositiveButton("YES") { _, _ ->
+                    signOutUser()
+                }
+                .setNeutralButton("NO") { _, _ ->
+                }
+                .show()
         }
 
         //deleteAccount

@@ -9,7 +9,9 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.firestore.FirebaseFirestore
 import tech.edroomdevs.edroom.R
 import tech.edroomdevs.edroom.databinding.ActivityAttendanceTeacherBinding
 import tech.edroomdevs.edroom.util.ConnectionManager
@@ -18,6 +20,8 @@ import java.util.*
 class AttendanceTeacherActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAttendanceTeacherBinding
+    private lateinit var db: FirebaseFirestore
+    private var subjectList: ArrayList<String> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +43,20 @@ class AttendanceTeacherActivity : AppCompatActivity() {
             resources.getStringArray(R.array.semester)
         )
         (binding.etAttendanceSemester as? AutoCompleteTextView)?.setAdapter(adapterSemester)
+        binding.etAttendanceSemester.addTextChangedListener {
+            getSubject(
+                binding.etAttendanceDept.editableText.toString(),
+                binding.etAttendanceSemester.editableText.toString()
+            )
+        }
 
+        //subject
+        val adapterSubject = ArrayAdapter(
+            applicationContext,
+            R.layout.list_design,
+            subjectList
+        )
+        (binding.etAttendanceSubject as? AutoCompleteTextView)?.setAdapter(adapterSubject)
 
         //date
         binding.etAttendanceDate.setOnClickListener {
@@ -53,6 +70,7 @@ class AttendanceTeacherActivity : AppCompatActivity() {
                     Intent(this@AttendanceTeacherActivity, NewAttendanceActivity::class.java)
                 intent.putExtra("branch", binding.etAttendanceDept.editableText.toString())
                 intent.putExtra("semester", binding.etAttendanceSemester.editableText.toString())
+                intent.putExtra("subject", binding.etAttendanceSubject.editableText.toString())
                 intent.putExtra("date", binding.etAttendanceDate.editableText.toString())
                 startActivity(intent)
             }
@@ -65,6 +83,7 @@ class AttendanceTeacherActivity : AppCompatActivity() {
                     Intent(this@AttendanceTeacherActivity, EditAttendanceActivity::class.java)
                 intent.putExtra("branch", binding.etAttendanceDept.editableText.toString())
                 intent.putExtra("semester", binding.etAttendanceSemester.editableText.toString())
+                intent.putExtra("subject", binding.etAttendanceSubject.editableText.toString())
                 intent.putExtra("date", binding.etAttendanceDate.editableText.toString())
                 startActivity(intent)
             }
@@ -94,6 +113,22 @@ class AttendanceTeacherActivity : AppCompatActivity() {
         }
         dialog.create()
         dialog.show()
+    }
+
+    //get subject function
+    private fun getSubject(branch: String, semester: String) {
+        db = FirebaseFirestore.getInstance()
+        //first clear the list then store all the subject name in a list
+        subjectList.clear()
+        db.collection("Subjects").document(branch).get().addOnSuccessListener { results ->
+            if (results.get(semester) != null) {
+                val subjects: List<*> = results.get(semester) as List<*>
+                if (subjects.isNotEmpty())
+                    subjects.forEach { subject ->
+                        subjectList.add(subject.toString())
+                    }
+            }
+        }
     }
 
     //date picker function
@@ -129,6 +164,12 @@ class AttendanceTeacherActivity : AppCompatActivity() {
             Toast.makeText(
                 this@AttendanceTeacherActivity,
                 "Please select Semester...",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (binding.etAttendanceSubject.editableText.toString() == "Subject") {
+            Toast.makeText(
+                this@AttendanceTeacherActivity,
+                "Please select Subject...",
                 Toast.LENGTH_SHORT
             ).show()
         } else if (binding.etAttendanceDate.editableText.toString() == "Date") {

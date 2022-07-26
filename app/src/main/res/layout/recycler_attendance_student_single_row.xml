@@ -67,7 +67,7 @@
                 android:textStyle="bold" />
 
             <RadioButton
-                android:id="@+id/radioStudent"
+                android:id="@+id/radioAbsent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/dark_blue"
