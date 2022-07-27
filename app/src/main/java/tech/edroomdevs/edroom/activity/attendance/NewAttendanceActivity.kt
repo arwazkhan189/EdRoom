@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.Query
+import tech.edroomdevs.edroom.R
 import tech.edroomdevs.edroom.adapter.IStudentListRecyclerAdapter
 import tech.edroomdevs.edroom.adapter.StudentListRecyclerAdapter
 import tech.edroomdevs.edroom.daos.AttendanceDbDao
@@ -25,25 +27,29 @@ class NewAttendanceActivity : AppCompatActivity(), IStudentListRecyclerAdapter {
     private lateinit var studentListRecyclerAdapter: StudentListRecyclerAdapter
     private lateinit var userDao: UserDao
     private lateinit var attendanceDbDao: AttendanceDbDao
-    private var totalStudent = 0
-    private var totalPresent = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewAttendanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var totalStudent: Int
+        var totalPresent: Int
+
         //attendance done button
         binding.btnAttendanceDone.setOnClickListener {
             totalStudent = studentListRecyclerAdapter.itemCount
-            totalPresent = attendanceDbDao.getTotalStudentPresent(
-                intent.getStringExtra("subject").toString(),
-                intent.getStringExtra("date").toString()
-            )
+            totalPresent = getTotalStudentPresent()
+            Log.e("i", totalPresent.toString())
             MaterialAlertDialogBuilder(this)
                 .setTitle("Are you sure to record the attendance?")
                 .setMessage("Total Student: $totalStudent\nTotal Present: $totalPresent\nTotal Absent: ${totalStudent - totalPresent}")
                 .setPositiveButton("YES") { _, _ ->
+                    Toast.makeText(
+                        this@NewAttendanceActivity,
+                        "Attendance Recorded Successfully...",
+                        Toast.LENGTH_LONG
+                    ).show()
                     attendanceSubmit()
                 }
                 .setNeutralButton("NO") { _, _ ->
@@ -112,6 +118,13 @@ class NewAttendanceActivity : AppCompatActivity(), IStudentListRecyclerAdapter {
         studentListRecyclerAdapter.stopListening()
     }
 
+    //on back press
+    override fun onBackPressed() {
+        startActivity(Intent(this, AttendanceTeacherActivity::class.java))
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        finish()
+    }
+
     //present click
     override fun onPresentClick(id: String, rollNumber: String) {
         attendanceDbDao = AttendanceDbDao()
@@ -134,13 +147,23 @@ class NewAttendanceActivity : AppCompatActivity(), IStudentListRecyclerAdapter {
 
     //attendance submit function
     private fun attendanceSubmit() {
-        Toast.makeText(
-            this@NewAttendanceActivity,
-            "Attendance Recorded Successfully...",
-            Toast.LENGTH_SHORT
-        ).show()
-        startActivity(Intent(this@NewAttendanceActivity, AttendanceTeacherActivity::class.java))
-        finishAffinity()
+        startActivity(Intent(this, AttendanceTeacherActivity::class.java))
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        finish()
+    }
+
+    private fun getTotalStudentPresent(): Int {
+        var totalPresent = 0
+        attendanceDbDao = AttendanceDbDao()
+        val attendanceCollection = attendanceDbDao.attendanceCollection
+        val subject = intent.getStringExtra("subject")!!
+        val date = intent.getStringExtra("date")!!
+        attendanceCollection.document(subject).get().addOnSuccessListener { snapshot ->
+            if (snapshot.get(date) != null) {
+                totalPresent = (snapshot.get(date) as List<*>).size
+            }
+        }
+        return totalPresent
     }
 
 }

@@ -9,8 +9,7 @@ import kotlinx.coroutines.launch
 
 class AttendanceDbDao {
     val db = FirebaseFirestore.getInstance()
-    private val attendanceCollection = db.collection("AttendanceDB")
-    private var totalPresent: Int = 0
+    val attendanceCollection = db.collection("AttendanceDB")
 
     fun addAttendance(subject: String, tempDateList: String) {
         GlobalScope.launch {
@@ -29,14 +28,5 @@ class AttendanceDbDao {
         GlobalScope.launch {
             attendanceCollection.document(subject).update(date, FieldValue.arrayRemove(rollNumber))
         }
-    }
-
-    fun getTotalStudentPresent(subject: String, date: String): Int {
-        attendanceCollection.document(subject).get().addOnSuccessListener {
-            if (it.get(date) != null) {
-                totalPresent = (it.get(date) as List<*>).size
-            }
-        }
-        return totalPresent
     }
 }

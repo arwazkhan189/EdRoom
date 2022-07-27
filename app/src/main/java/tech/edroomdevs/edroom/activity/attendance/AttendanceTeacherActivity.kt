@@ -100,6 +100,7 @@ class AttendanceTeacherActivity : AppCompatActivity() {
                             createAttendanceArray(subject, date.replace("/", "") + attendanceTimes)
                         }
                         startActivity(intent)
+                        finish()
                     }
                     .setNeutralButton("NO") { _, _ ->
                     }
@@ -126,10 +127,10 @@ class AttendanceTeacherActivity : AppCompatActivity() {
                     .setPositiveButton("YES") { _, _ ->
                         if (attendanceTimes == "1") {
                             intent.putExtra("date", date.replace("/", ""))
-                            createAttendanceArray(subject, date.replace("/", ""))
+                            //createAttendanceArray(subject, date.replace("/", ""))
                         } else {
                             intent.putExtra("date", date.replace("/", "") + attendanceTimes)
-                            createAttendanceArray(subject, date.replace("/", "") + attendanceTimes)
+                            //createAttendanceArray(subject, date.replace("/", "") + attendanceTimes)
                         }
                         startActivity(intent)
                     }
@@ -236,5 +237,4 @@ class AttendanceTeacherActivity : AppCompatActivity() {
         attendanceDbDao = AttendanceDbDao()
         attendanceDbDao.addAttendance(subject, dateList)
     }
-
 }
