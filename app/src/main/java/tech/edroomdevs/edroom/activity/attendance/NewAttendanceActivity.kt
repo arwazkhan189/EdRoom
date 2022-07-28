@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -13,34 +12,34 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.Query
 import tech.edroomdevs.edroom.R
-import tech.edroomdevs.edroom.adapter.IStudentListRecyclerAdapter
-import tech.edroomdevs.edroom.adapter.StudentListRecyclerAdapter
+import tech.edroomdevs.edroom.adapter.INewAttendanceRecyclerAdapter
+import tech.edroomdevs.edroom.adapter.NewAttendanceRecyclerAdapter
 import tech.edroomdevs.edroom.daos.AttendanceDbDao
 import tech.edroomdevs.edroom.daos.UserDao
 import tech.edroomdevs.edroom.databinding.ActivityNewAttendanceBinding
 import tech.edroomdevs.edroom.model.User
 import tech.edroomdevs.edroom.util.ConnectionManager
 
-class NewAttendanceActivity : AppCompatActivity(), IStudentListRecyclerAdapter {
+class NewAttendanceActivity : AppCompatActivity(), INewAttendanceRecyclerAdapter {
 
     private lateinit var binding: ActivityNewAttendanceBinding
-    private lateinit var studentListRecyclerAdapter: StudentListRecyclerAdapter
+    private lateinit var newAttendanceRecyclerAdapter: NewAttendanceRecyclerAdapter
     private lateinit var userDao: UserDao
     private lateinit var attendanceDbDao: AttendanceDbDao
+    private lateinit var presentStudentRollNumberList: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewAttendanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var totalStudent: Int
-        var totalPresent: Int
+        //initialize array
+        presentStudentRollNumberList = arrayListOf()
 
         //attendance done button
         binding.btnAttendanceDone.setOnClickListener {
-            totalStudent = studentListRecyclerAdapter.itemCount
-            totalPresent = getTotalStudentPresent()
-            Log.e("i", totalPresent.toString())
+            val totalStudent = newAttendanceRecyclerAdapter.itemCount
+            val totalPresent = presentStudentRollNumberList.size
             MaterialAlertDialogBuilder(this)
                 .setTitle("Are you sure to record the attendance?")
                 .setMessage("Total Student: $totalStudent\nTotal Present: $totalPresent\nTotal Absent: ${totalStudent - totalPresent}")
@@ -101,26 +100,26 @@ class NewAttendanceActivity : AppCompatActivity(), IStudentListRecyclerAdapter {
             FirestoreRecyclerOptions.Builder<User>().setQuery(query, User::class.java)
                 .build()
 
-        studentListRecyclerAdapter =
-            StudentListRecyclerAdapter(recyclerViewOptions, this)
-        binding.recyclerViewStudentList.adapter = studentListRecyclerAdapter
+        newAttendanceRecyclerAdapter =
+            NewAttendanceRecyclerAdapter(recyclerViewOptions, this)
+        binding.recyclerViewStudentList.adapter = newAttendanceRecyclerAdapter
         binding.recyclerViewStudentList.layoutManager = LinearLayoutManager(this)
-        studentListRecyclerAdapter.notifyDataSetChanged()
+        newAttendanceRecyclerAdapter.notifyDataSetChanged()
     }
 
     override fun onStart() {
         super.onStart()
-        studentListRecyclerAdapter.startListening()
+        newAttendanceRecyclerAdapter.startListening()
     }
 
     override fun onStop() {
         super.onStop()
-        studentListRecyclerAdapter.stopListening()
+        newAttendanceRecyclerAdapter.stopListening()
     }
 
     //on back press
     override fun onBackPressed() {
-        startActivity(Intent(this, AttendanceTeacherActivity::class.java))
+        startActivity(Intent(this@NewAttendanceActivity, AttendanceTeacherActivity::class.java))
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         finish()
     }
@@ -133,6 +132,8 @@ class NewAttendanceActivity : AppCompatActivity(), IStudentListRecyclerAdapter {
             intent.getStringExtra("date")!!,
             rollNumber
         )
+        if (!presentStudentRollNumberList.contains(rollNumber))
+            presentStudentRollNumberList.add(rollNumber)
     }
 
     //absent click
@@ -143,30 +144,19 @@ class NewAttendanceActivity : AppCompatActivity(), IStudentListRecyclerAdapter {
             intent.getStringExtra("date")!!,
             rollNumber
         )
+        if (presentStudentRollNumberList.contains(rollNumber))
+            presentStudentRollNumberList.remove(rollNumber)
     }
 
     //attendance submit function
     private fun attendanceSubmit() {
-        startActivity(Intent(this, AttendanceTeacherActivity::class.java))
+        startActivity(Intent(this@NewAttendanceActivity, AttendanceTeacherActivity::class.java))
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         finish()
     }
 
-    private fun getTotalStudentPresent(): Int {
-        var totalPresent = 0
-        attendanceDbDao = AttendanceDbDao()
-        val attendanceCollection = attendanceDbDao.attendanceCollection
-        val subject = intent.getStringExtra("subject")!!
-        val date = intent.getStringExtra("date")!!
-        attendanceCollection.document(subject).get().addOnSuccessListener { snapshot ->
-            if (snapshot.get(date) != null) {
-                totalPresent = (snapshot.get(date) as List<*>).size
-            }
-        }
-        return totalPresent
-    }
-
 }
+
 
 
 

@@ -175,6 +175,7 @@ class DoubtDetailsActivity : AppCompatActivity() {
                 if (items.isNotEmpty())
                     items.forEach {
                         answerList.add(it.toString())
+
                     }
             }
         }

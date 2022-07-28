@@ -29,4 +29,14 @@ class AttendanceDbDao {
             attendanceCollection.document(subject).update(date, FieldValue.arrayRemove(rollNumber))
         }
     }
+
+
+    //    fun deleteAttendance(subject: String, dateList: String) {
+//        GlobalScope.launch {
+//            //val dateList = hashMapOf(tempDateList to arrayListOf<String>())
+//            attendanceCollection.document(subject).update(dateList, FieldValue.delete())
+//        }
+//    }
+
 }
+

@@ -11,41 +11,41 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import tech.edroomdevs.edroom.R
 import tech.edroomdevs.edroom.model.User
 
-class StudentListRecyclerAdapter(
+class NewAttendanceRecyclerAdapter(
     options: FirestoreRecyclerOptions<User>,
-    private val listener: IStudentListRecyclerAdapter
+    private val listener: INewAttendanceRecyclerAdapter
 ) :
-    FirestoreRecyclerAdapter<User, StudentListRecyclerAdapter.StudentListViewHolder>(options) {
+    FirestoreRecyclerAdapter<User, NewAttendanceRecyclerAdapter.NewAttendanceViewHolder>(options) {
 
-    class StudentListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class NewAttendanceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvStudentName: TextView = view.findViewById(R.id.tvStudentName)
         val tvStudentRollNumber: TextView = view.findViewById(R.id.tvStudentRollNumber)
         val radioPresent: RadioButton = view.findViewById(R.id.radioPresent)
         val radioAbsent: RadioButton = view.findViewById(R.id.radioAbsent)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentListViewHolder {
-        val studentListViewHolder = StudentListViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewAttendanceViewHolder {
+        val newAttendanceViewHolder = NewAttendanceViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.recycler_attendance_student_single_row, parent, false)
         )
-        studentListViewHolder.radioPresent.setOnClickListener {
+        newAttendanceViewHolder.radioPresent.setOnClickListener {
             listener.onPresentClick(
-                snapshots.getSnapshot(studentListViewHolder.adapterPosition).id,
-                studentListViewHolder.tvStudentRollNumber.text.toString()
+                snapshots.getSnapshot(newAttendanceViewHolder.adapterPosition).id,
+                newAttendanceViewHolder.tvStudentRollNumber.text.toString()
             )
         }
-        studentListViewHolder.radioAbsent.setOnClickListener {
+        newAttendanceViewHolder.radioAbsent.setOnClickListener {
             listener.onAbsentClick(
-                snapshots.getSnapshot(studentListViewHolder.adapterPosition).id,
-                studentListViewHolder.tvStudentRollNumber.text.toString()
+                snapshots.getSnapshot(newAttendanceViewHolder.adapterPosition).id,
+                newAttendanceViewHolder.tvStudentRollNumber.text.toString()
             )
         }
-        return studentListViewHolder
+        return newAttendanceViewHolder
     }
 
     override fun onBindViewHolder(
-        holder: StudentListViewHolder,
+        holder: NewAttendanceViewHolder,
         position: Int,
         model: User
     ) {
@@ -55,7 +55,7 @@ class StudentListRecyclerAdapter(
 
 }
 
-interface IStudentListRecyclerAdapter {
+interface INewAttendanceRecyclerAdapter {
     fun onPresentClick(id: String, rollNumber: String)
     fun onAbsentClick(id: String, rollNumber: String)
 }
