@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -12,6 +13,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import tech.edroomdevs.edroom.R
 import tech.edroomdevs.edroom.daos.AttendanceDbDao
 import tech.edroomdevs.edroom.databinding.ActivityAttendanceTeacherBinding
@@ -23,8 +26,9 @@ class AttendanceTeacherActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAttendanceTeacherBinding
     private lateinit var db: FirebaseFirestore
     private var subjectList: ArrayList<String> = arrayListOf()
-    private lateinit var attendanceDbDao: AttendanceDbDao
     private var attendanceTimes: String = "1"
+    private lateinit var attendanceDbDao: AttendanceDbDao
+    private var presentStudentRollNumberList: ArrayList<String> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,10 +98,8 @@ class AttendanceTeacherActivity : AppCompatActivity() {
                     .setPositiveButton("YES") { _, _ ->
                         if (attendanceTimes == "1") {
                             intent.putExtra("date", date.replace("/", ""))
-                            createAttendanceArray(subject, date.replace("/", ""))
                         } else {
                             intent.putExtra("date", date.replace("/", "") + attendanceTimes)
-                            createAttendanceArray(subject, date.replace("/", "") + attendanceTimes)
                         }
                         startActivity(intent)
                         finish()
@@ -116,23 +118,29 @@ class AttendanceTeacherActivity : AppCompatActivity() {
                 val subject = binding.etAttendanceSubject.editableText.toString()
                 val date = binding.etAttendanceDate.editableText.toString()
 
+                if (attendanceTimes == "1")
+                    getPresentStudentRollNumber(subject, date.replace("/", ""))
+                else
+                    getPresentStudentRollNumber(subject, date.replace("/", "") + attendanceTimes)
+
                 val intent =
                     Intent(this@AttendanceTeacherActivity, EditAttendanceActivity::class.java)
                 intent.putExtra("branch", branch)
                 intent.putExtra("semester", semester)
                 intent.putExtra("subject", subject)
+                intent.putExtra("presentStudentRollNumberList", presentStudentRollNumberList)
+                Log.d("aa", presentStudentRollNumberList.toString())
                 MaterialAlertDialogBuilder(this)
                     .setTitle("Confirm Edit Attendance?")
                     .setMessage("Branch: $branch\nSemester: $semester\nSubject: $subject\nDate: $date\nClass: $attendanceTimes")
                     .setPositiveButton("YES") { _, _ ->
                         if (attendanceTimes == "1") {
                             intent.putExtra("date", date.replace("/", ""))
-                            //createAttendanceArray(subject, date.replace("/", ""))
                         } else {
                             intent.putExtra("date", date.replace("/", "") + attendanceTimes)
-                            //createAttendanceArray(subject, date.replace("/", "") + attendanceTimes)
                         }
                         startActivity(intent)
+                        finish()
                     }
                     .setNeutralButton("NO") { _, _ ->
                     }
@@ -232,9 +240,21 @@ class AttendanceTeacherActivity : AppCompatActivity() {
         return false
     }
 
-    //create attendance array
-    private fun createAttendanceArray(subject: String, dateList: String) {
+    //get Present student roll number
+    private fun getPresentStudentRollNumber(subject: String, date: String) {
         attendanceDbDao = AttendanceDbDao()
-        attendanceDbDao.addAttendance(subject, dateList)
+        GlobalScope.launch {
+            attendanceDbDao.attendanceCollection.document(subject).get()
+                .addOnSuccessListener { dateList ->
+                    if (dateList.get(date) != null) {
+                        val rollNumber: List<*> = dateList.get(date) as List<*>
+                        if (rollNumber.isNotEmpty())
+                            rollNumber.forEach {
+                                presentStudentRollNumberList.add(it.toString())
+                            }
+                    }
+                }
+        }
     }
+
 }

@@ -76,9 +76,6 @@ class ProfileActivity : AppCompatActivity() {
                 .show()
         }
 
-        //deleteAccount
-
-
     }
 
     //on resume function

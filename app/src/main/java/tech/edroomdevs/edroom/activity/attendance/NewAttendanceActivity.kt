@@ -126,33 +126,36 @@ class NewAttendanceActivity : AppCompatActivity(), INewAttendanceRecyclerAdapter
 
     //present click
     override fun onPresentClick(id: String, rollNumber: String) {
-        attendanceDbDao = AttendanceDbDao()
-        attendanceDbDao.markAttendancePresent(
-            intent.getStringExtra("subject")!!,
-            intent.getStringExtra("date")!!,
-            rollNumber
-        )
         if (!presentStudentRollNumberList.contains(rollNumber))
             presentStudentRollNumberList.add(rollNumber)
     }
 
     //absent click
     override fun onAbsentClick(id: String, rollNumber: String) {
-        attendanceDbDao = AttendanceDbDao()
-        attendanceDbDao.markAttendanceAbsent(
-            intent.getStringExtra("subject")!!,
-            intent.getStringExtra("date")!!,
-            rollNumber
-        )
         if (presentStudentRollNumberList.contains(rollNumber))
             presentStudentRollNumberList.remove(rollNumber)
     }
 
     //attendance submit function
     private fun attendanceSubmit() {
+        addAttendance(
+            intent.getStringExtra("subject").toString(),
+            intent.getStringExtra("date").toString(),
+            presentStudentRollNumberList
+        )
         startActivity(Intent(this@NewAttendanceActivity, AttendanceTeacherActivity::class.java))
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         finish()
+    }
+
+    //add attendance function
+    private fun addAttendance(
+        subject: String,
+        dateList: String,
+        presentStudentRollNumberList: ArrayList<String>
+    ) {
+        attendanceDbDao = AttendanceDbDao()
+        attendanceDbDao.addAttendance(subject, dateList, presentStudentRollNumberList)
     }
 
 }

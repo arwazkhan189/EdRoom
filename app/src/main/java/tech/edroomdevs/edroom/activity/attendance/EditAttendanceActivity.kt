@@ -28,15 +28,15 @@ class EditAttendanceActivity : AppCompatActivity(), IEditAttendanceRecyclerAdapt
     private lateinit var editAttendanceRecyclerAdapter: EditAttendanceRecyclerAdapter
     private lateinit var userDao: UserDao
     private lateinit var attendanceDbDao: AttendanceDbDao
-    lateinit var presentStudentRollNumberList: ArrayList<String>
+    private var presentStudentRollNumberList: ArrayList<String> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditAttendanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //initialize array
-        presentStudentRollNumberList = arrayListOf()
+        //set up recycler view
+        setUpAttendanceRecyclerView()
 
         //button edit done
         binding.btnEditDone.setOnClickListener {
@@ -57,10 +57,6 @@ class EditAttendanceActivity : AppCompatActivity(), IEditAttendanceRecyclerAdapt
                 }
                 .show()
         }
-
-        //set up recycler view
-        setUpAttendanceRecyclerView()
-
     }
 
     //on resume function
@@ -69,8 +65,7 @@ class EditAttendanceActivity : AppCompatActivity(), IEditAttendanceRecyclerAdapt
             checkInternet()
         }
         getPresentStudentRollNumber(
-            intent.getStringExtra("subject").toString(),
-            intent.getStringExtra("date").toString()
+            intent.getStringExtra("subject").toString(), intent.getStringExtra("date").toString()
         )
         super.onResume()
     }
@@ -102,34 +97,19 @@ class EditAttendanceActivity : AppCompatActivity(), IEditAttendanceRecyclerAdapt
                 intent.getStringExtra("branch")
             ).whereEqualTo("semester", intent.getStringExtra("semester"))
                 .orderBy("rollNumber", Query.Direction.ASCENDING)
-
         val recyclerViewOptions =
             FirestoreRecyclerOptions.Builder<User>().setQuery(query, User::class.java)
                 .build()
-
         editAttendanceRecyclerAdapter =
-            EditAttendanceRecyclerAdapter(recyclerViewOptions, this)
+            EditAttendanceRecyclerAdapter(
+                recyclerViewOptions,
+                intent.getStringArrayListExtra("presentStudentRollNumberList")!!, this
+            )
         binding.recyclerViewStudentList.adapter = editAttendanceRecyclerAdapter
         binding.recyclerViewStudentList.layoutManager = LinearLayoutManager(this)
         editAttendanceRecyclerAdapter.notifyDataSetChanged()
     }
 
-    //get Present student roll number
-    private fun getPresentStudentRollNumber(subject: String, date: String) {
-        attendanceDbDao = AttendanceDbDao()
-        GlobalScope.launch {
-            attendanceDbDao.attendanceCollection.document(subject).get()
-                .addOnSuccessListener { dateList ->
-                    if (dateList.get(date) != null) {
-                        val rollNumber: List<*> = dateList.get(date) as List<*>
-                        if (rollNumber.isNotEmpty())
-                            rollNumber.forEach {
-                                presentStudentRollNumberList.add(it.toString())
-                            }
-                    }
-                }
-        }
-    }
 
     override fun onStart() {
         super.onStart()
@@ -150,7 +130,6 @@ class EditAttendanceActivity : AppCompatActivity(), IEditAttendanceRecyclerAdapt
 
     //if student already present do not mark present if not then mark present
     override fun onPresentClick(id: String, rollNumber: String, fullName: String) {
-        attendanceDbDao = AttendanceDbDao()
         if (presentStudentRollNumberList.contains(rollNumber)) {
             Toast.makeText(
                 this@EditAttendanceActivity,
@@ -158,23 +137,14 @@ class EditAttendanceActivity : AppCompatActivity(), IEditAttendanceRecyclerAdapt
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            attendanceDbDao.markAttendancePresent(
-                intent.getStringExtra("subject")!!,
-                intent.getStringExtra("date")!!,
-                rollNumber
-            )
+            presentStudentRollNumberList.add(rollNumber)
         }
     }
 
     //if student already absent do not mark absent if not then mark absent
     override fun onAbsentClick(id: String, rollNumber: String, fullName: String) {
-        attendanceDbDao = AttendanceDbDao()
         if (presentStudentRollNumberList.contains(rollNumber)) {
-            attendanceDbDao.markAttendanceAbsent(
-                intent.getStringExtra("subject")!!,
-                intent.getStringExtra("date")!!,
-                rollNumber
-            )
+            presentStudentRollNumberList.remove(rollNumber)
         } else {
             Toast.makeText(
                 this@EditAttendanceActivity,
@@ -186,9 +156,41 @@ class EditAttendanceActivity : AppCompatActivity(), IEditAttendanceRecyclerAdapt
 
     //attendance submit function
     private fun attendanceEditSubmit() {
+        editAttendance(
+            intent.getStringExtra("subject").toString(),
+            intent.getStringExtra("date").toString(),
+            presentStudentRollNumberList
+        )
         startActivity(Intent(this@EditAttendanceActivity, AttendanceTeacherActivity::class.java))
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         finish()
+    }
+
+    //edit attendance function
+    private fun editAttendance(
+        subject: String,
+        dateList: String,
+        presentStudentRollNumberList: ArrayList<String>
+    ) {
+        attendanceDbDao = AttendanceDbDao()
+        attendanceDbDao.addAttendance(subject, dateList, presentStudentRollNumberList)
+    }
+
+    //get Present student roll number
+    private fun getPresentStudentRollNumber(subject: String, date: String) {
+        attendanceDbDao = AttendanceDbDao()
+        GlobalScope.launch {
+            attendanceDbDao.attendanceCollection.document(subject).get()
+                .addOnSuccessListener { dateList ->
+                    if (dateList.get(date) != null) {
+                        val rollNumber: List<*> = dateList.get(date) as List<*>
+                        if (rollNumber.isNotEmpty())
+                            rollNumber.forEach {
+                                presentStudentRollNumberList.add(it.toString())
+                            }
+                    }
+                }
+        }
     }
 
 }

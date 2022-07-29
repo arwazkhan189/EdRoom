@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import tech.edroomdevs.edroom.R
-import tech.edroomdevs.edroom.activity.attendance.EditAttendanceActivity
 import tech.edroomdevs.edroom.model.User
 
 class EditAttendanceRecyclerAdapter(
     options: FirestoreRecyclerOptions<User>,
+    private val presentStudentRollNumberList: ArrayList<String>,
     private val listener: IEditAttendanceRecyclerAdapter
 ) : FirestoreRecyclerAdapter<User, EditAttendanceRecyclerAdapter.EditAttendanceViewHolder>(options) {
 
@@ -49,7 +49,7 @@ class EditAttendanceRecyclerAdapter(
     override fun onBindViewHolder(holder: EditAttendanceViewHolder, position: Int, model: User) {
         holder.tvStudentName.text = model.fullName
         holder.tvStudentRollNumber.text = model.rollNumber
-        if (EditAttendanceActivity().presentStudentRollNumberList.contains(model.rollNumber)) {
+        if (presentStudentRollNumberList.contains(model.rollNumber)) {
             holder.radioPresent.isChecked = true
         } else {
             holder.radioAbsent.isChecked = true
