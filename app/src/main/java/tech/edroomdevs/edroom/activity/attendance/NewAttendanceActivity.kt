@@ -27,6 +27,8 @@ class NewAttendanceActivity : AppCompatActivity(), INewAttendanceRecyclerAdapter
     private lateinit var userDao: UserDao
     private lateinit var attendanceDbDao: AttendanceDbDao
     private lateinit var presentStudentRollNumberList: ArrayList<String>
+    private lateinit var userIdListPresent: ArrayList<String>
+    private lateinit var userIdListAbsent: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,8 @@ class NewAttendanceActivity : AppCompatActivity(), INewAttendanceRecyclerAdapter
 
         //initialize array
         presentStudentRollNumberList = arrayListOf()
+        userIdListPresent = arrayListOf()
+        userIdListAbsent = arrayListOf()
 
         //attendance done button
         binding.btnAttendanceDone.setOnClickListener {
@@ -126,14 +130,20 @@ class NewAttendanceActivity : AppCompatActivity(), INewAttendanceRecyclerAdapter
 
     //present click
     override fun onPresentClick(id: String, rollNumber: String) {
-        if (!presentStudentRollNumberList.contains(rollNumber))
+        if (!presentStudentRollNumberList.contains(rollNumber)) {
             presentStudentRollNumberList.add(rollNumber)
+            if (!userIdListPresent.contains(id))
+                userIdListPresent.add(id)
+        }
     }
 
     //absent click
     override fun onAbsentClick(id: String, rollNumber: String) {
-        if (presentStudentRollNumberList.contains(rollNumber))
+        if (presentStudentRollNumberList.contains(rollNumber)) {
             presentStudentRollNumberList.remove(rollNumber)
+            if (!userIdListAbsent.contains(id))
+                userIdListAbsent.add(id)
+        }
     }
 
     //attendance submit function
@@ -155,7 +165,9 @@ class NewAttendanceActivity : AppCompatActivity(), INewAttendanceRecyclerAdapter
         presentStudentRollNumberList: ArrayList<String>
     ) {
         attendanceDbDao = AttendanceDbDao()
-        attendanceDbDao.addAttendance(subject, dateList, presentStudentRollNumberList)
+        attendanceDbDao.addAttendance(subject, dateList, presentStudentRollNumberList, 1)
+        attendanceDbDao.incrementAttendanceValue(userIdListPresent, subject, 1)
+        attendanceDbDao.incrementAttendanceValue(userIdListAbsent, subject, 0)
     }
 
 }

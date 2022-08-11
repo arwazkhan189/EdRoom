@@ -10,6 +10,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -24,6 +25,8 @@ import tech.edroomdevs.edroom.util.ConnectionManager
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
+    private lateinit var db: FirebaseFirestore
+    private var attendanceMap: HashMap<String, Int> = hashMapOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,12 @@ class ProfileActivity : AppCompatActivity() {
             val itemsSemester = resources.getStringArray(R.array.semester)
             val adapterSemester = ArrayAdapter(this, R.layout.list_design, itemsSemester)
             (binding.etProfileSemester as? AutoCompleteTextView)?.setAdapter(adapterSemester)
+        }
+        binding.etProfileSemester.addTextChangedListener {
+            addAttendanceSubjectMap(
+                binding.etProfileDepartment.editableText.toString(),
+                binding.etProfileDepartment.editableText.toString()
+            )
         }
 
         // Department
@@ -160,7 +169,8 @@ class ProfileActivity : AppCompatActivity() {
                         "userEmailId" to binding.etProfileEmail.editableText.toString(),
                         "mobileNumber" to binding.etProfileMobileNumber.editableText.toString(),
                         "semester" to binding.etProfileSemester.editableText.toString(),
-                        "rollNumber" to binding.etProfileRollNumber.editableText.toString()
+                        "rollNumber" to binding.etProfileRollNumber.editableText.toString(),
+                        "attendanceMap" to attendanceMap
                     )
                 )
             }
@@ -173,6 +183,22 @@ class ProfileActivity : AppCompatActivity() {
         val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
         startActivity(intent)
         finishAffinity()
+    }
+
+    // add Attendance Map
+    private fun addAttendanceSubjectMap(branch: String, semester: String) {
+        db = FirebaseFirestore.getInstance()
+        //first clear the list then store all the subject name in a list
+        attendanceMap.clear()
+        db.collection("Subjects").document(branch).get().addOnSuccessListener { results ->
+            if (results.get(semester) != null) {
+                val subjects: List<*> = results.get(semester) as List<*>
+                if (subjects.isNotEmpty())
+                    subjects.forEach { subject ->
+                        attendanceMap[subject.toString()] = 0
+                    }
+            }
+        }
     }
 
 }

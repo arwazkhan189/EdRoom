@@ -72,6 +72,8 @@
         <entry key="..\:/EdRoom/EdRoom/app/src/main/res/layout/recycler_doubt_single_row.xml" value="0.19791666666666666" />
         <entry key="..\:/EdRoom/EdRoom/app/src/main/res/layout/recycler_notice_single_row.xml" value="0.19791666666666666" />
         <entry key="..\:/EdRoom/EdRoom/app/src/main/res/layout/recycler_resource_single_row.xml" value="0.19791666666666666" />
+        <entry key="..\:/EdRoom/EdRoom/app/src/main/res/layout/recycler_student_attendace_precent_single_row.xml" value="0.12837837837837837" />
+        <entry key="..\:/EdRoom/EdRoom/app/src/main/res/layout/recycler_student_attendance_percent_single_row.xml" value="0.12837837837837837" />
         <entry key="..\:/EdRoom/EdRoom/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1555" />
         <entry key="..\:/EdRoom/EdRoom/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1555" />
       </map>

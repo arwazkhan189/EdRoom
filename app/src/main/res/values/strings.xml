@@ -25,7 +25,6 @@
     <string name="title">Title</string>
     <string name="this_is_a_short_description_about_the_notice">This is a short description about the notice</string>
     <string name="read_details">Read Details</string>
-    <string name="this_is_the_short_description_of_previous_notice">This is the short description of previous notice…</string>
     <string name="happy_to_see_you_again">Happy to see you again</string>
     <string name="welcome">Welcome</string>
     <string name="account">Account</string>
@@ -95,8 +94,7 @@
     <string name="jan_01_2022">JAN 01 2022</string>
     <string name="total_attendance">Total Attendance</string>
     <string name="score">Score</string>
-    <string name="recent">Recent</string>
-    <string name="_subject_">Subject :</string>
+    <string name="recent"><u>Recent</u></string>
     <string name="item">item</string>
     <string name="done">Done</string>
     <string name="present">Present</string>
@@ -134,4 +132,8 @@
     <string name="onBoarding3_text">Search and download notes, add relevant tags and upload your notes.</string>
     <string name="skip">Skip</string>
     <string name="get_started">Get started</string>
+    <string name="percent">Percent</string>
+    <string name="total_percentage">Total %</string>
+    <string name="attendance_report"><u>Attendance Report</u></string>
+    <string name="attendance_not_taken_yet">Attendance Not Taken Yet...</string>
 </resources>

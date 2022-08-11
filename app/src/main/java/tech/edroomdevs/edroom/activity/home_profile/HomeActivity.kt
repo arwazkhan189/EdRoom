@@ -25,6 +25,9 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var db: FirebaseFirestore
+    private var subjectList = arrayListOf<String>()
+    private var percentList = arrayListOf<Int>()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +50,8 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(intent)
             } else {
                 val intent = Intent(this@HomeActivity, AttendanceStudentActivity::class.java)
+                intent.putExtra("subjectList", subjectList)
+                intent.putExtra("percentList", percentList)
                 startActivity(intent)
             }
         }
@@ -72,6 +77,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         if (ConnectionManager().checkConnectivity(this)) {
             displayUserName()
+            collectData()
         } else {
             checkInternet()
         }
@@ -115,9 +121,27 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun savePreferences(fullName: String, rollNumber: String) {
-        sharedPreferences.edit()
-            .putString("fullName", fullName).apply()
+        sharedPreferences.edit().putString("fullName", fullName).apply()
         sharedPreferences.edit().putString("rollNumber", rollNumber).apply()
+    }
+
+    //collect data
+    private fun collectData() {
+        subjectList.clear()
+        percentList.clear()
+        db = FirebaseFirestore.getInstance()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        db.collection("Users").document(userId.toString()).get()
+            .addOnSuccessListener { attendanceMap ->
+                if (attendanceMap.get("attendanceMap") != null) {
+                    val tempMap: HashMap<*, *> =
+                        attendanceMap.get("attendanceMap") as HashMap<*, *>
+                    tempMap.forEach {
+                        subjectList.add(it.key.toString())
+                        percentList.add(it.value.toString().toInt())
+                    }
+                }
+            }
     }
 
 }

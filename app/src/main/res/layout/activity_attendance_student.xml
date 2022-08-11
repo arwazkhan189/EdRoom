@@ -7,227 +7,136 @@
     tools:context=".activity.attendance.AttendanceStudentActivity">
 
     <TextView
-        android:id="@+id/tvTotalAttendance"
+        android:id="@+id/txtAttendanceReport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="92dp"
+        android:text="@string/attendance_report"
+        android:textColor="@color/dark_blue"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <TextView
+        android:id="@+id/txtTotalAttendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:layout_marginStart="12.5dp"
+        android:padding="4dp"
         android:text="@string/total_attendance"
         android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvPercent"
-        app:layout_constraintHorizontal_bias="0.218"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/guideline1"
+        app:layout_constraintEnd_toStartOf="@id/tvTotalAttendancePercent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tvPercent"
+        android:id="@+id/tvTotalAttendancePercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="76dp"
-        android:gravity="center_horizontal"
-        android:text="@string/score"
+        android:layout_marginVertical="4dp"
+        android:layout_marginEnd="12.5dp"
+        android:padding="4dp"
+        android:text="@string/total_percentage"
         android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.131" />
+        app:layout_constraintStart_toEndOf="@id/txtTotalAttendance" />
 
     <View
-        android:id="@+id/line"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="25dp"
         android:background="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.307"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTotalAttendance" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tvSubject1"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/_subject_"
-        android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvSubject1Percent"
-        app:layout_constraintHorizontal_bias="0.237"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="200dp" />
 
-    <TextView
-        android:id="@+id/tvSubject1Percent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="52dp"
-        android:text="@string/score"
-        android:textColor="@color/dark_blue"
-        android:textSize="23sp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerAttendancePercentRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line" />
-
-    <TextView
-        android:id="@+id/tvSubject2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/_subject_"
-        android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvSubject1Percent"
-        app:layout_constraintHorizontal_bias="0.237"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubject1" />
+        app:layout_constraintTop_toBottomOf="@id/guideline1"
+        tools:listitem="@layout/recycler_student_attendance_percent_single_row" />
 
-    <TextView
-        android:id="@+id/tvSubject2Percent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="52dp"
-        android:text="@string/score"
-        android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubject1Percent" />
-
-    <TextView
-        android:id="@+id/tvSubject3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/_subject_"
-        android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvSubject2Percent"
-        app:layout_constraintHorizontal_bias="0.238"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubject2" />
-
-    <TextView
-        android:id="@+id/tvSubject3Percent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="52dp"
-        android:text="@string/score"
-        android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubject2Percent" />
-
-    <TextView
-        android:id="@+id/tvSubject4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/_subject_"
-        android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvSubject4Percent"
-        app:layout_constraintHorizontal_bias="0.237"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubject3" />
-
-    <TextView
-        android:id="@+id/tvSubject4Percent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="52dp"
-        android:text="@string/score"
-        android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubject3Percent" />
-
-    <TextView
-        android:id="@+id/tvSubject5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/_subject_"
-        android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvSubject5Percent"
-        app:layout_constraintHorizontal_bias="0.237"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubject4" />
-
-    <TextView
-        android:id="@+id/tvSubject5Percent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="52dp"
-        android:text="@string/score"
-        android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubject4Percent" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="650dp" />
 
     <View
-        android:id="@+id/line2"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="25dp"
         android:background="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.307"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSubject5" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tvRecent"
+        android:id="@+id/txtRecent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginVertical="2dp"
+        android:padding="4dp"
         android:text="@string/recent"
         android:textColor="@color/dark_blue"
-        android:textSize="26sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/line2" />
+        app:layout_constraintTop_toBottomOf="@id/guideline2" />
 
     <TextView
         android:id="@+id/tvRecentSubject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/_subject_"
+        android:layout_marginVertical="8dp"
+        android:layout_marginStart="12.5dp"
+        android:padding="4dp"
+        android:text="@string/subject"
         android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintBottom_toTopOf="@id/guideline4"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/tvRecentTeacher"
-        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRecent" />
+        app:layout_constraintTop_toBottomOf="@id/txtRecent" />
 
     <TextView
         android:id="@+id/tvRecentTeacher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="52dp"
+        android:layout_marginVertical="8dp"
+        android:layout_marginEnd="12.5dp"
+        android:padding="4dp"
         android:text="@string/teacher"
         android:textColor="@color/dark_blue"
-        android:textSize="23sp"
-        app:layout_constraintBottom_toTopOf="@id/guideline4"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tvRecentSubject"
-        app:layout_constraintTop_toBottomOf="@id/tvRecent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="624dp" />
+        app:layout_constraintTop_toBottomOf="@id/txtRecent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

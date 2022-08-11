@@ -29,6 +29,8 @@ class EditAttendanceActivity : AppCompatActivity(), IEditAttendanceRecyclerAdapt
     private lateinit var userDao: UserDao
     private lateinit var attendanceDbDao: AttendanceDbDao
     private var presentStudentRollNumberList: ArrayList<String> = arrayListOf()
+    private var userIdListPresent: ArrayList<String> = arrayListOf()
+    private var userIdListAbsent: ArrayList<String> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,6 +140,8 @@ class EditAttendanceActivity : AppCompatActivity(), IEditAttendanceRecyclerAdapt
             ).show()
         } else {
             presentStudentRollNumberList.add(rollNumber)
+            if (!userIdListPresent.contains(id))
+                userIdListPresent.add(id)
         }
     }
 
@@ -145,6 +149,8 @@ class EditAttendanceActivity : AppCompatActivity(), IEditAttendanceRecyclerAdapt
     override fun onAbsentClick(id: String, rollNumber: String, fullName: String) {
         if (presentStudentRollNumberList.contains(rollNumber)) {
             presentStudentRollNumberList.remove(rollNumber)
+            if (!userIdListAbsent.contains(id))
+                userIdListAbsent.add(id)
         } else {
             Toast.makeText(
                 this@EditAttendanceActivity,
@@ -173,7 +179,9 @@ class EditAttendanceActivity : AppCompatActivity(), IEditAttendanceRecyclerAdapt
         presentStudentRollNumberList: ArrayList<String>
     ) {
         attendanceDbDao = AttendanceDbDao()
-        attendanceDbDao.addAttendance(subject, dateList, presentStudentRollNumberList)
+        attendanceDbDao.addAttendance(subject, dateList, presentStudentRollNumberList, 0)
+        attendanceDbDao.incrementAttendanceValue(userIdListPresent, subject, 1)
+        attendanceDbDao.incrementAttendanceValue(userIdListAbsent, subject, 0)
     }
 
     //get Present student roll number

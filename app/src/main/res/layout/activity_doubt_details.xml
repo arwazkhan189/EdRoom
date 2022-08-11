@@ -252,20 +252,6 @@
                     app:layout_constraintStart_toEndOf="@id/txtAnswers"
                     app:layout_constraintTop_toBottomOf="@id/guidelineDivider" />
 
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewDoubtAnswers"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:background="@color/shadowBack"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="@id/guidelineDivider2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txtAnswers"
-                    tools:listitem="@layout/recycler_answer_single_row" />
-
                 <TextView
                     android:id="@+id/txtNotAnsweredYet"
                     android:layout_width="match_parent"
@@ -280,6 +266,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtAnswers" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewDoubtAnswers"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/shadowBack"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="@id/guidelineDivider2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtAnswers"
+                    tools:listitem="@layout/recycler_answer_single_row" />
+
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guidelineDivider2"

@@ -7,5 +7,6 @@ class User(
     val semester: String? = null,
     val rollNumber: String? = null,
     val mobileNumber: String? = null,
-    val userEmailId: String? = null
+    val userEmailId: String? = null,
+    val attendanceMap: HashMap<String, Int>? = null
 )

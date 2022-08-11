@@ -8,8 +8,10 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import tech.edroomdevs.edroom.R
 import tech.edroomdevs.edroom.activity.home_profile.HomeActivity
 import tech.edroomdevs.edroom.daos.UserDao
@@ -21,6 +23,8 @@ class AddStudentDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserInfoBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
+    private var attendanceMap: HashMap<String, Int> = hashMapOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +37,12 @@ class AddStudentDetailsActivity : AppCompatActivity() {
         val itemsSemester = resources.getStringArray(R.array.semester)
         val adapterSemester = ArrayAdapter(this, R.layout.list_design, itemsSemester)
         (binding.etRegisterSemester as? AutoCompleteTextView)?.setAdapter(adapterSemester)
+        binding.etRegisterSemester.addTextChangedListener {
+            addAttendanceSubjectMap(
+                binding.etRegisterDept.editableText.toString(),
+                binding.etRegisterSemester.editableText.toString()
+            )
+        }
 
         // Department
         val itemsDept = resources.getStringArray(R.array.dept)
@@ -126,7 +136,8 @@ class AddStudentDetailsActivity : AppCompatActivity() {
                                 binding.etRegisterSemester.editableText.toString(),
                                 binding.etRegisterRollNo.editableText.toString(),
                                 binding.etRegisterMobileNo.editableText.toString(),
-                                emailId.toString()
+                                emailId.toString(),
+                                attendanceMap
                             )
                         val usersDao = UserDao()
                         usersDao.addUser(userInfo)
@@ -156,6 +167,22 @@ class AddStudentDetailsActivity : AppCompatActivity() {
             "Back button is disabled",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    // add Attendance Map
+    private fun addAttendanceSubjectMap(branch: String, semester: String) {
+        db = FirebaseFirestore.getInstance()
+        //first clear the list then store all the subject name in a list
+        attendanceMap.clear()
+        db.collection("Subjects").document(branch).get().addOnSuccessListener { results ->
+            if (results.get(semester) != null) {
+                val subjects: List<*> = results.get(semester) as List<*>
+                if (subjects.isNotEmpty())
+                    subjects.forEach { subject ->
+                        attendanceMap[subject.toString()] = 0
+                    }
+            }
+        }
     }
 
 }

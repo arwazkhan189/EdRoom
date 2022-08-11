@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -108,8 +107,6 @@ class DoubtDetailsActivity : AppCompatActivity() {
         if (!(ConnectionManager().checkConnectivity(this))) {
             checkInternet()
         }
-        if (answerRecyclerAdapter.itemCount == 0)
-            binding.txtNotAnsweredYet.visibility = View.VISIBLE
         storeAnswerImageNameAndId(intent.getStringExtra("doubtId")!!)
         super.onResume()
     }
@@ -178,7 +175,6 @@ class DoubtDetailsActivity : AppCompatActivity() {
                 if (items.isNotEmpty())
                     items.forEach {
                         answerList.add(it.toString())
-
                     }
             }
         }
@@ -238,7 +234,6 @@ class DoubtDetailsActivity : AppCompatActivity() {
         }
     }
 
-
     //setup recycler view function
     @SuppressLint("NotifyDataSetChanged")
     private fun setUpAnswerRecyclerView() {
@@ -268,4 +263,6 @@ class DoubtDetailsActivity : AppCompatActivity() {
         answerRecyclerAdapter.stopListening()
     }
 
+
 }
+

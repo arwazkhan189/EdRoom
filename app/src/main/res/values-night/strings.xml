@@ -95,8 +95,7 @@
     <string name="jan_01_2022">JAN 01 2022</string>
     <string name="total_attendance">Total Attendance</string>
     <string name="score">Score</string>
-    <string name="recent">Recent</string>
-    <string name="_subject_">Subject :</string>
+    <string name="recent"><u>Recent</u></string>
     <string name="item">item</string>
     <string name="done">Done</string>
     <string name="present">Present</string>
@@ -134,4 +133,8 @@
     <string name="onBoarding3_text">Search and download notes, add relevant tags and upload your notes.</string>
     <string name="skip">Skip</string>
     <string name="get_started">Get started</string>
+    <string name="percent">Percent</string>
+    <string name="total_percentage">Total %</string>
+    <string name="attendance_report">Attendance Report</string>
+    <string name="attendance_not_taken_yet">Attendance Not Taken Yet...</string>
 </resources>
