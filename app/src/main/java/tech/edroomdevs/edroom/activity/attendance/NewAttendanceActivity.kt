@@ -1,7 +1,9 @@
 package tech.edroomdevs.edroom.activity.attendance
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
@@ -29,11 +31,15 @@ class NewAttendanceActivity : AppCompatActivity(), INewAttendanceRecyclerAdapter
     private lateinit var presentStudentRollNumberList: ArrayList<String>
     private lateinit var userIdListPresent: ArrayList<String>
     private lateinit var userIdListAbsent: ArrayList<String>
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewAttendanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        sharedPreferences =
+            getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
 
         //initialize array
         presentStudentRollNumberList = arrayListOf()
@@ -168,6 +174,12 @@ class NewAttendanceActivity : AppCompatActivity(), INewAttendanceRecyclerAdapter
         attendanceDbDao.addAttendance(subject, dateList, presentStudentRollNumberList, 1)
         attendanceDbDao.incrementAttendanceValue(userIdListPresent, subject, 1)
         attendanceDbDao.incrementAttendanceValue(userIdListAbsent, subject, 0)
+        attendanceDbDao.addRecentAttendance(
+            intent.getStringExtra("branch").toString(),
+            intent.getStringExtra("semester").toString(),
+            sharedPreferences.getString("fullName", "").toString(),
+            subject
+        )
     }
 
 }

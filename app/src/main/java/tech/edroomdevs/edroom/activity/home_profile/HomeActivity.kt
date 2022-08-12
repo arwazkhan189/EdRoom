@@ -28,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private var subjectList = arrayListOf<String>()
     private var percentList = arrayListOf<Int>()
+    private var totalSubjectClassList = arrayListOf<Int>()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +53,7 @@ class HomeActivity : AppCompatActivity() {
                 val intent = Intent(this@HomeActivity, AttendanceStudentActivity::class.java)
                 intent.putExtra("subjectList", subjectList)
                 intent.putExtra("percentList", percentList)
+                intent.putExtra("totalSubjectClassList", totalSubjectClassList)
                 startActivity(intent)
             }
         }
@@ -77,7 +79,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         if (ConnectionManager().checkConnectivity(this)) {
             displayUserName()
-            collectData()
+            if (sharedPreferences.getString("rollNumber", "") != BuildConfig.teacherKey)
+                collectData()
         } else {
             checkInternet()
         }
@@ -125,10 +128,11 @@ class HomeActivity : AppCompatActivity() {
         sharedPreferences.edit().putString("rollNumber", rollNumber).apply()
     }
 
-    //collect data
+    //collect attendance data
     private fun collectData() {
         subjectList.clear()
         percentList.clear()
+        totalSubjectClassList.clear()
         db = FirebaseFirestore.getInstance()
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         db.collection("Users").document(userId.toString()).get()
@@ -139,6 +143,15 @@ class HomeActivity : AppCompatActivity() {
                     tempMap.forEach {
                         subjectList.add(it.key.toString())
                         percentList.add(it.value.toString().toInt())
+                        db.collection("AttendanceDB").document(it.key.toString()).get()
+                            .addOnSuccessListener { attendance ->
+                                val totalSubject = "Total${it.key}"
+                                if (attendance.get(totalSubject) != null) {
+                                    totalSubjectClassList.add(
+                                        attendance.get(totalSubject).toString().toInt()
+                                    )
+                                }
+                            }
                     }
                 }
             }

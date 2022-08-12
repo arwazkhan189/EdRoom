@@ -11,8 +11,7 @@ class AttendanceDbDao {
     val db = FirebaseFirestore.getInstance()
     val attendanceCollection = db.collection("AttendanceDB")
     private val userCollection = db.collection("Users")
-    private var totalClassSubject: Int = 0
-    private var totalClass: ArrayList<Int> = arrayListOf()
+    private val recentAttendanceCollection = db.collection("RecentAttendance")
 
     fun addAttendance(
         subject: String,
@@ -29,26 +28,6 @@ class AttendanceDbDao {
         }
     }
 
-    fun getTotalNumberOfClassInSubject(subject: String): Int {
-        attendanceCollection.document(subject).get().addOnSuccessListener {
-            if (it.get("Total${subject}") != 0) {
-                totalClassSubject = it.get("Total${subject}").toString().toInt()
-            }
-        }
-        return totalClassSubject
-    }
-//
-//    fun getTotalNumberOfClass(subjectList: ArrayList<String>): Int {
-//        for (subject in subjectList) {
-//            attendanceCollection.document(subject).get().addOnSuccessListener {
-//                if (it.get("Total${subject}") != 0) {
-//                    totalClass.add(it.get("Total${subject}").toString().toInt())
-//                }
-//            }
-//        }
-//        return totalClass[0]
-//    }
-
     fun incrementAttendanceValue(
         userIdList: ArrayList<String>,
         subject: String,
@@ -64,6 +43,19 @@ class AttendanceDbDao {
                         .update("attendanceMap.${subject}", FieldValue.increment(-100))
                 }
             }
+        }
+    }
+
+    fun addRecentAttendance(
+        branch: String,
+        semester: String,
+        teacher: String,
+        subject: String
+    ) {
+        GlobalScope.launch {
+            val recentAttendanceMap =
+                hashMapOf("recentTeacher" to teacher, "recentSubject" to subject)
+            recentAttendanceCollection.document(branch + semester).set(recentAttendanceMap)
         }
     }
 

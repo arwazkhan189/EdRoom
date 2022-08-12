@@ -8,8 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import tech.edroomdevs.edroom.adapter.AttendanceStudentRecyclerAdapter
-import tech.edroomdevs.edroom.daos.AttendanceDbDao
 import tech.edroomdevs.edroom.databinding.ActivityAttendanceStudentBinding
 import tech.edroomdevs.edroom.util.ConnectionManager
 
@@ -17,17 +18,20 @@ class AttendanceStudentActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAttendanceStudentBinding
     private lateinit var attendanceStudentRecyclerAdapter: AttendanceStudentRecyclerAdapter
-    private lateinit var attendanceDbDao: AttendanceDbDao
+    val db = FirebaseFirestore.getInstance()
+    private lateinit var userBranch: String
+    private lateinit var userSemester: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAttendanceStudentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //recent attendance
-        binding.tvRecentSubject.text = ""
-        binding.tvRecentTeacher.text = ""
+        //calling total percentage
+        totalPercentage()
 
+        //get recent attendance
+        getRecentAttendance()
     }
 
     //on resume function
@@ -36,7 +40,6 @@ class AttendanceStudentActivity : AppCompatActivity() {
             checkInternet()
         }
         showData()
-        totalPercentage()
         super.onResume()
     }
 
@@ -65,19 +68,47 @@ class AttendanceStudentActivity : AppCompatActivity() {
         attendanceStudentRecyclerAdapter =
             AttendanceStudentRecyclerAdapter(
                 intent.getStringArrayListExtra("subjectList") as ArrayList<String>,
-                intent.getStringArrayListExtra("percentList") as ArrayList<Int>
+                intent.getStringArrayListExtra("percentList") as ArrayList<Int>,
+                intent.getStringArrayListExtra("totalSubjectClassList") as ArrayList<Int>
             )
         binding.recyclerAttendancePercentRow.adapter = attendanceStudentRecyclerAdapter
         attendanceStudentRecyclerAdapter.notifyDataSetChanged()
     }
 
+    // getting total percentage
+    @SuppressLint("SetTextI18n")
     private fun totalPercentage() {
-        attendanceDbDao = AttendanceDbDao()
-        val percentArray = intent.getStringArrayListExtra("percentList") as ArrayList<Int>
+        var totalClass = 0
         var totalPercent = 0
+        val percentArray = intent.getStringArrayListExtra("percentList") as ArrayList<Int>
+        val totalClassArray =
+            intent.getStringArrayListExtra("totalSubjectClassList") as ArrayList<Int>
         for (percent in percentArray)
             totalPercent += percent
-        binding.tvTotalAttendancePercent.text = totalPercent.toString()
+        for (i in totalClassArray)
+            totalClass += i
+        if (totalClass != 0)
+            binding.tvTotalAttendancePercent.text = "${(totalPercent / totalClass)} %"
+        else
+            binding.tvTotalAttendancePercent.text = "...%"
+    }
+
+    //getting recent attendance
+    @SuppressLint("SetTextI18n")
+    private fun getRecentAttendance() {
+        val userCurrent = FirebaseAuth.getInstance().currentUser
+        val userId = userCurrent?.uid.toString()
+        db.collection("Users").document(userId).get().addOnSuccessListener {
+            userBranch = it.get("department").toString()
+            userSemester = it.get("semester").toString()
+            db.collection("RecentAttendance").document(userBranch + userSemester).get()
+                .addOnSuccessListener { ref ->
+                    if (ref.get("recentTeacher") != null && ref.get("recentSubject") != null) {
+                        binding.tvRecentSubject.text = ref.get("recentSubject").toString()
+                        binding.tvRecentTeacher.text = "Prof. ${ref.get("recentTeacher")}"
+                    }
+                }
+        }
     }
 
 }

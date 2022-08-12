@@ -10,7 +10,8 @@ import tech.edroomdevs.edroom.R
 
 class AttendanceStudentRecyclerAdapter(
     private val subjectList: ArrayList<String>,
-    private val percentList: ArrayList<Int>
+    private val percentList: ArrayList<Int>,
+    private val totalSubjectClassList: ArrayList<Int>
 ) : RecyclerView.Adapter<AttendanceStudentRecyclerAdapter.AttendanceStudentViewHolder>() {
 
     class AttendanceStudentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -29,7 +30,8 @@ class AttendanceStudentRecyclerAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: AttendanceStudentViewHolder, position: Int) {
         holder.tvSubject.text = subjectList[position]
-        holder.tvSubjectAttendancePercent.text = "${percentList[position]} %"
+        holder.tvSubjectAttendancePercent.text =
+            "${percentList[position] / totalSubjectClassList[position]} %"
     }
 
     override fun getItemCount(): Int {
