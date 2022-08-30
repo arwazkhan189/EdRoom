@@ -67,10 +67,28 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="200dp" />
 
+    <TextView
+        android:id="@+id/txtAttendanceCondition"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="@string/at_least_one_class_of_each_subject_is_needed_to_show_this_data"
+        android:textColor="@color/pink"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline1" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerAttendancePercentRow"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

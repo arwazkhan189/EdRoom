@@ -39,7 +39,6 @@ class HomeActivity : AppCompatActivity() {
         sharedPreferences =
             getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
 
-
         binding.btnViewProfile.setOnClickListener {
             val intent = Intent(this@HomeActivity, ProfileActivity::class.java)
             startActivity(intent)
@@ -83,6 +82,12 @@ class HomeActivity : AppCompatActivity() {
                 collectData()
         } else {
             checkInternet()
+        }
+        //image profile set
+        if (sharedPreferences.getString("rollNumber", "") == BuildConfig.teacherKey) {
+            binding.imgProfile.setImageResource(R.drawable.teacher_avataar)
+        } else {
+            binding.imgProfile.setImageResource(R.drawable.student_avataar)
         }
         super.onResume()
     }
@@ -156,5 +161,6 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
     }
+
 
 }

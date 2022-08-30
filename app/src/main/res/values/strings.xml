@@ -136,4 +136,5 @@
     <string name="total_percentage">Total %</string>
     <string name="attendance_report"><u>Attendance Report</u></string>
     <string name="attendance_not_taken_yet">Attendance Not Taken Yet...</string>
+    <string name="at_least_one_class_of_each_subject_is_needed_to_show_this_data">At least one class of each subject is needed to show this data.</string>
 </resources>

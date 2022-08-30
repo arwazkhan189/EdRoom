@@ -30,13 +30,16 @@ class AttendanceStudentRecyclerAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: AttendanceStudentViewHolder, position: Int) {
         holder.tvSubject.text = subjectList[position]
-        holder.tvSubjectAttendancePercent.text =
-            "${percentList[position] / totalSubjectClassList[position]} %"
+        try {
+            holder.tvSubjectAttendancePercent.text =
+                "${percentList[position] / totalSubjectClassList[position]} %"
+        } catch (e: ArithmeticException) {
+            holder.tvSubjectAttendancePercent.text = "${percentList[position]} %"
+        }
     }
 
     override fun getItemCount(): Int {
         return subjectList.size
     }
-
 
 }

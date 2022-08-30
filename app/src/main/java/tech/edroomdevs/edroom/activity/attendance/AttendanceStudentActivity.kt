@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -63,16 +64,28 @@ class AttendanceStudentActivity : AppCompatActivity() {
     //setup recycler view function
     @SuppressLint("NotifyDataSetChanged")
     private fun showData() {
-        binding.recyclerAttendancePercentRow.layoutManager = LinearLayoutManager(this)
-        binding.recyclerAttendancePercentRow.setHasFixedSize(true)
-        attendanceStudentRecyclerAdapter =
-            AttendanceStudentRecyclerAdapter(
-                intent.getStringArrayListExtra("subjectList") as ArrayList<String>,
-                intent.getStringArrayListExtra("percentList") as ArrayList<Int>,
-                intent.getStringArrayListExtra("totalSubjectClassList") as ArrayList<Int>
-            )
-        binding.recyclerAttendancePercentRow.adapter = attendanceStudentRecyclerAdapter
-        attendanceStudentRecyclerAdapter.notifyDataSetChanged()
+        val subjectList = intent.getStringArrayListExtra("subjectList") as ArrayList<String>
+        val percentList = intent.getStringArrayListExtra("percentList") as ArrayList<Int>
+        val totalSubjectClassList =
+            intent.getStringArrayListExtra("totalSubjectClassList") as ArrayList<Int>
+
+        if (totalSubjectClassList.size < subjectList.size) {
+            binding.txtAttendanceCondition.visibility = View.VISIBLE
+            binding.recyclerAttendancePercentRow.visibility = View.INVISIBLE
+            binding.tvTotalAttendancePercent.text = "...%"
+        } else {
+            binding.txtAttendanceCondition.visibility = View.INVISIBLE
+            binding.recyclerAttendancePercentRow.visibility = View.VISIBLE
+            attendanceStudentRecyclerAdapter =
+                AttendanceStudentRecyclerAdapter(
+                    subjectList,
+                    percentList,
+                    totalSubjectClassList
+                )
+            binding.recyclerAttendancePercentRow.adapter = attendanceStudentRecyclerAdapter
+            binding.recyclerAttendancePercentRow.layoutManager = LinearLayoutManager(this)
+            attendanceStudentRecyclerAdapter.notifyDataSetChanged()
+        }
     }
 
     // getting total percentage
